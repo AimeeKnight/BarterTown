@@ -13,7 +13,7 @@ html(class='no-js', lang='en')
     nav.top-bar
       ul.title-area
         li.name
-          h1: a(href="/") Note II
+          h1: a(href="/") BarterTown
         li.toggle-topbar.menu-icon
           a(href="#") Menu
 
@@ -22,10 +22,10 @@ html(class='no-js', lang='en')
         ul.right
           li: a(href="/") Home
           if user
-            li.divider
-            li: a(href="/notes") Notes
-            li.divider
-            li: a(href="/notes/new") New Note
+            //li.divider
+            //li: a(href="/items") Items
+            //li.divider
+            //li: a(href="/items/new") New Item
             li.has-form
               form(action='/logout', method='post')
                 button.small.alert= user.email
