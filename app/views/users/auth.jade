@@ -1,0 +1,35 @@
+extends ../shared/template
+
+block content
+  .row
+    .small-6.columns
+      form(action='/register', method='post')
+        fieldset
+          legend Register
+          .row
+            .small-12.columns
+              label Email
+              input(name='email', type='text', autofocus=true)
+          .row
+            .small-12.columns
+              label Password
+              input(name='password', type='password')
+          .row
+            .small-12.columns
+              button.small.radius Register
+    .small-6.columns
+      form(action='/login', method='post')
+        fieldset
+          legend Login
+          .row
+            .small-12.columns
+              label Email
+              input(name='email', type='text')
+          .row
+            .small-12.columns
+              label Password
+              input(name='password', type='password')
+          .row
+            .small-12.columns
+              button.small.radius.alert Login
+

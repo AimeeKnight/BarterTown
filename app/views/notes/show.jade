@@ -1,0 +1,21 @@
+extends ../shared/template
+
+block content
+  table
+    thead
+      tr
+        th Title
+        th Body
+        th Tags
+        th Date Created
+    tbody
+      tr
+        td= note.title
+        td= note.body
+        td= note.tags
+        td= note.dateCreated
+
+  form(action='/notes/' + note._id, method='post')
+    input(type='hidden', name='_method', value='delete')
+    button.alert.small.radius Delete
+

@@ -1,0 +1,29 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app/app.js"
+  },
+  "dependencies": {
+    "express":       "*",
+    "lodash":        "*",
+    "moment":        "*",
+    "mongodb":       "*",
+    "bcrypt":        "*",
+    "connect-redis": "*",
+    "jade":          "*",
+    "express-less":  "*",
+    "rimraf":        "*"
+  },
+  "devDependencies": {
+    "grunt":                "*",
+    "grunt-contrib-jshint": "*",
+    "jshint-stylish":       "*",
+    "grunt-contrib-watch":  "*",
+    "mocha":                "*",
+    "chai" :                "*",
+    "supertest":            "*"
+  }
+}
+

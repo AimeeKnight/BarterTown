@@ -1,0 +1,7 @@
+extends ../shared/template
+
+block content
+  each note in notes
+    .note
+      a(href='/notes/' + note._id)= note.title
+

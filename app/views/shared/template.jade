@@ -1,0 +1,48 @@
+doctype html
+//[if IE 9]><html class="lt-ie10" lang="en" > <![endif]
+html(class='no-js', lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/css/normalize.css')
+    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/less/app.css')
+    script(src='/js/vendor/modernizr.js')
+  body
+    nav.top-bar
+      ul.title-area
+        li.name
+          h1: a(href="/") Note II
+        li.toggle-topbar.menu-icon
+          a(href="#") Menu
+
+      section.top-bar-section
+        ul.left
+        ul.right
+          li: a(href="/") Home
+          if user
+            li.divider
+            li: a(href="/notes") Notes
+            li.divider
+            li: a(href="/notes/new") New Note
+            li.has-form
+              form(action='/logout', method='post')
+                button.small.alert= user.email
+          else
+            li.divider
+            li: a(href="/auth") Register/Login
+    .row
+      .small-12.columns
+        h1=title
+    .row
+      .small-12.columns
+        block content
+
+    script(src='/js/vendor/jquery.js')
+    script(src='/js/vendor/foundation.js')
+    script(src='/js/vendor/foundation.topbar.js')
+    script(src='/js/vendor/lodash.js')
+    script(src='/js/vendor/moment.js')
+    script(src='/js/source/main.js')
+
