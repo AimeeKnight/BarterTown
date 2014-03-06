@@ -167,20 +167,43 @@ describe('Item', function(){
       var i1 = new Item({name:'Broom',
                          description:'Description',
                          tags:'some, random, tags',
+                         available: true,
                          userId:'222222222222222222222222'});
       var i2 = new Item({name:'Purse',
                          description:'Description',
                          tags:'some, random, tags',
                          userId:'333333333333333333333333'});
+      var i3 = new Item({name:'Shoe',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         available: true,
+                         userId:'433333333333333333333333'});
       i1.insert(function(){
         i2.insert(function(){
-          //item2Id = i2._id.toString();
-          Item.findAll(function(items){
-            expect(items).to.have.length(2);
-            done();
+          i3.insert(function(){
+            Item.findByAvailable(function(items){
+              expect(items).to.have.length(2);
+              done();
+            });
           });
         });
       });
     });
+  });
+  
+  describe('.deleteById', function(){
+    it('should toggle availability', function(done){
+      var i1 = new Item({name:'Broom',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         userId:'222222222222222222222222'});
+      i1.insert(function(){
+        i1.toggleAvailable(function(){
+          expect(i1.available).to.equal(true);
+          done();
+        });
+      });
+    });
+  });
 /////////////
 });

@@ -75,3 +75,16 @@ Item.deleteById = function(id, fn){
   });
 };
 
+Item.findByAvailable = function(fn){
+  items.find({available:true}).toArray(function(err, records){
+    fn(records);
+  });
+};
+
+Item.prototype.toggleAvailable = function(fn){
+  //var _id = Mongo.ObjectID(this._id);
+  this.available = !this.available;
+  items.update({_id:this._id}, this, function(err, count){
+    fn(err, count);
+  });
+};
