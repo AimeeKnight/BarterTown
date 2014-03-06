@@ -5,8 +5,9 @@
 process.env.DBNAME = 'note2-test';
 var expect = require('chai').expect;
 var Mongo = require('mongodb');
-var User;
-var sue;
+var exec = require('child_process').exec;
+var fs = require('fs');
+var User, sue;
 
 describe('User', function(){
 
@@ -20,7 +21,7 @@ describe('User', function(){
 
   beforeEach(function(done){
     global.nss.db.dropDatabase(function(err, result){
-      sue = new User({email:'sue@aol.com', password:'abcd'});
+      sue = new User({userName: 'Sue Williams', email:'sue@aol.com', password:'abcd'});
       sue.hashPassword(function(){
         sue.insert(function(){
           done();
@@ -40,7 +41,7 @@ describe('User', function(){
 
   describe('#hashPassword', function(){
     it('should hash a password with salt', function(done){
-      var u1 = new User({email:'bob@aol.com', password:'1234'});
+      var u1 = new User({userName: 'bob jones', email:'bob@aol.com', password:'1234'});
       u1.hashPassword(function(){
         expect(u1.password).to.not.equal('1234');
         done();
@@ -50,7 +51,7 @@ describe('User', function(){
 
   describe('#insert', function(){
     it('should insert user into mongo', function(done){
-      var u1 = new User({email:'bob@aol.com', password:'1234'});
+      var u1 = new User({userName: 'bob jones', email:'bob@aol.com', password:'1234'});
       u1.hashPassword(function(){
         u1.insert(function(){
           expect(u1._id).to.be.instanceof(Mongo.ObjectID);
@@ -59,7 +60,7 @@ describe('User', function(){
       });
     });
     it('should not insert duplicate user into mongo', function(done){
-      var u1 = new User({email:'sue@aol.com', password:'wxyz'});
+      var u1 = new User({userName: 'Sue Williams', email:'sue@aol.com', password:'wxyz'});
       u1.hashPassword(function(){
         u1.insert(function(){
           expect(u1._id).to.be.undefined;
@@ -98,6 +99,35 @@ describe('User', function(){
         expect(user).to.be.null;
         done();
       });
+    });
+  });
+
+  describe('.addPhoto', function(){
+    beforeEach(function(done){
+      var testdir = __dirname + '/../../app/static/img/users/test*';
+      var cmd = 'rm -rf ' + testdir;
+
+      exec(cmd, function(){
+        var origfile = __dirname + '/../fixtures/oprah.png';
+        var copyfile = __dirname + '/../fixtures/oprah-copy.png';
+        fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile));
+        global.nss.db.dropDatabase(function(err,result){
+          done();
+        });
+      });
+    });
+
+    it('should add a Photo to a user', function(done){
+      var userObj = {};
+      userObj.userName = 'Matt';
+      userObj.email = 'testmatt@matt.com';
+      userObj.password = '1234';
+      var u1 = new User(userObj);
+
+      var oldname = __dirname + '/../fixtures/oprah-copy.png';
+      u1.addPhoto(oldname);
+      expect(u1.userPhoto).to.equal('/img/users/testmattmattcom/photo.png');
+      done();
     });
   });
 });

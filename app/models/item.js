@@ -1,47 +1,76 @@
 'use strict';
 
-module.exports = Note;
+module.exports = Item;
 var Mongo = require('mongodb');
 var _ = require('lodash');
-var notes = global.nss.db.collection('notes');
+var fs = require('fs');
+var path = require('path');
+var items = global.nss.db.collection('items');
 
-function Note(note){
-  this.title = note.title;
-  this.body = note.body;
-  this.dateCreated = note.dateCreated ? new Date(note.dateCreated) : new Date();
-  this.tags = note.tags.split(',').map(function(n){return n.trim();});
+function Item(item){
+  this.name = item.name;
+  this.description = item.description;
+  this.bids = [];
+  this.tags = item.tags.split(',').map(function(n){return n.trim();});
   this.tags = _.compact(this.tags);
-  this.userId = Mongo.ObjectID(note.userId);
+  this.userId = Mongo.ObjectID(item.userId);
+  this.available = item.available || false;
 }
 
-Note.prototype.insert = function(fn){
+Item.prototype.addPhoto = function(oldpath){
+  // oldpath = temp folder
+
+  // path to new location
+  var abspath = __dirname + '/../static/img/items/' + this.userId.toString();
+  fs.mkdirSync(abspath);
+
+  // grabs .png
+  var extension = path.extname(oldpath);
+  var relpath = '/img/items/' + this.userId.toString() + '/' + this.name + extension;
+
+  // abspath == /../static/img/item/this.userId/this.name.png
+  abspath += '/' + this.name + extension;
+  // renameSync moves file
+  fs.renameSync(oldpath, abspath);
+  // sets photo path
+  this.photo = relpath;
+};
+
+Item.prototype.insert = function(fn){
   var self = this;
 
-  notes.insert(self, function(err, records){
+  items.insert(self, function(err, records){
     fn(err);
   });
 };
 
-Note.findByUserId = function(userId, fn){
+Item.findByUserId = function(userId, fn){
   userId = Mongo.ObjectID(userId);
 
-  notes.find({userId:userId}).toArray(function(err, records){
-    fn(records);
+  items.find({userId:userId}).toArray(function(err, records){
+    fn(records[0]);
   });
 };
 
-Note.findById = function(id, fn){
+
+Item.findById = function(id, fn){
   var _id = Mongo.ObjectID(id);
 
-  notes.findOne({_id:_id}, function(err, record){
+  items.findOne({_id:_id}, function(err, record){
     fn(record);
   });
 };
 
-Note.findByIdAndDelete = function(id, fn){
+Item.findAll = function(fn){
+  items.find().toArray(function(err, records){
+    fn(records);
+  });
+};
+
+Item.deleteById = function(id, fn){
   var _id = Mongo.ObjectID(id);
 
-  notes.remove({_id:_id}, function(err, count){
+  items.remove({_id:_id}, function(err, count){
     fn(count);
   });
 };

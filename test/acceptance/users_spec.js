@@ -3,7 +3,7 @@
 process.env.DBNAME = 'note2-test';
 var app = require('../../app/app');
 var request = require('supertest');
-var expect = require('chai').expect;
+//var expect = require('chai').expect;
 var User;
 var sue;
 
@@ -36,7 +36,7 @@ describe('users', function(){
       .expect(200, done);
     });
   });
-
+/*
   describe('GET /auth', function(){
     it('should display the auth page', function(done){
       request(app)
@@ -97,5 +97,6 @@ describe('users', function(){
       });
     });
   });
+*/
 });
 

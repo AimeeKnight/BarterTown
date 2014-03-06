@@ -4,8 +4,11 @@ module.exports = User;
 var bcrypt = require('bcrypt');
 var users = global.nss.db.collection('users');
 var Mongo = require('mongodb');
+var fs = require('fs');
+var path = require('path');
 
 function User(user){
+  this.userName = user.userName;
   this.email = user.email;
   this.password = user.password;
 }
@@ -31,6 +34,19 @@ User.prototype.insert = function(fn){
       fn(err);
     }
   });
+};
+
+User.prototype.addPhoto = function(oldpath){
+  var dirname = this.email.replace(/\W/g,'').toLowerCase();
+  var abspath = __dirname + '/../static';
+  var relpath = '/img/users/' + dirname;
+  fs.mkdirSync(abspath + relpath);
+
+  var extension = path.extname(oldpath);
+  relpath += '/photo' + extension;
+  fs.renameSync(oldpath, abspath + relpath);
+
+  this.userPhoto = relpath;
 };
 
 User.findById = function(id, fn){
