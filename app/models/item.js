@@ -22,13 +22,11 @@ Item.prototype.addPhoto = function(oldpath){
   // oldpath = temp folder
 
   // path to new location
-  // NEED TO ADD IF STATEMENT SINCE DIR ALREADY EXISTS!!!!!
-
-  var abspath = __dirname + '/../static/img/items/' + this.name + this.userId.toString();
+  var abspath = __dirname + '/../static/img/items/' + this.name.replace(' ', '') + this.userId.toString();
   fs.mkdirSync(abspath);
   // grabs .png
   var extension = path.extname(oldpath);
-  var relpath = '/img/items/' + this.name + this.userId.toString() + '/' + this.name.replace(' ', '').trim() + extension;
+  var relpath = '/img/items/' + this.name.replace(' ', '') + this.userId.toString() + '/' + this.name.replace(' ', '').trim() + extension;
 
   // abspath == /../static/img/item/this.userId/this.name.png
   abspath += '/' + this.name + extension;

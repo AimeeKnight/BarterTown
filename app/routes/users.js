@@ -9,7 +9,7 @@ exports.auth = function(req, res){
 exports.register = function(req, res){
   var user = new User(req.body);
   user.hashPassword(function(){
-    user.addPhoto(req.files.photo.path);
+    user.addPhoto(req.files.userPhoto.path);
     user.insert(function(){
       console.log('>>>>>>>>', user);
       if(user._id){

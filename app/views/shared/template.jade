@@ -23,15 +23,14 @@ html(class='no-js', lang='en')
           li: a(href="/") Home
           li.divider
           if user
-            //li: a(href="/items") Items
-            //li.divider
-            //li: a(href="/items/new") New Item
-            li.has-form
-              form(action='/logout', method='post')
-                button.small.alert= user.email
-                  //li: a(href="/items") Items
-                  //li.divider
-                  //li: a(href="/items/new") New Item
+            li.has-form.has-dropdown.not-click
+              a(href='#')= user.userName ? user.userName : user.email
+              ul.dropdown
+                li: a(href="/items") Items
+                li: a(href="/items/new") New Item
+                li.has-form
+                  form(action='/logout', method='post')
+                    button#logout.tiny.radius.alert Logout
           else
             li.divider
             li: a(href="/auth") Register/Login

@@ -1,9 +1,9 @@
 extends ../shared/template
 
 block content
-  h1= user.name
+  h1= user.userName
   h4= user.email
-  img(src= user.photo).user-img
+  img(src= user.userPhoto).user-img
 
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')
