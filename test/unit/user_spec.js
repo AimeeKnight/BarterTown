@@ -88,12 +88,14 @@ describe('User', function(){
         done();
       });
     });
+
     it('should not find user - bad email', function(done){
       User.findByEmailAndPassword('bad@aol.com', 'abcd', function(user){
         expect(user).to.be.null;
         done();
       });
     });
+
     it('should not find user - bad password', function(done){
       User.findByEmailAndPassword('sue@aol.com', 'wrong', function(user){
         expect(user).to.be.null;
@@ -108,7 +110,7 @@ describe('User', function(){
       var cmd = 'rm -rf ' + testdir;
 
       exec(cmd, function(){
-        var origfile = __dirname + '/../fixtures/oprah.png';
+        var origfile = __dirname + '/../fixtures/oprah.jpg';
         var copyfile = __dirname + '/../fixtures/oprah-copy.png';
         fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile));
         global.nss.db.dropDatabase(function(err,result){
