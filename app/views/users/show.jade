@@ -5,6 +5,10 @@ block content
   h4= user.email
   img(src= user.userPhoto).user-img
 
+  h1 Items List:
+  each item in items
+    h4= item.name
+
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')
     //button.alert.small.radius Delete

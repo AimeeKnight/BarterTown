@@ -149,8 +149,8 @@ describe('Item', function(){
                              tags:'some, random, tags',
                              userId:userId});
           i1.insert(function(){
-            Item.findByUserId(userId, function(item){
-              expect(item.userId.toString()).to.deep.equal(userId);
+            Item.findByUserId(userId, function(items){
+              expect(items[0].userId.toString()).to.deep.equal(userId);
               done();
             });
           });

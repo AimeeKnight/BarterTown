@@ -48,7 +48,7 @@ Item.findByUserId = function(userId, fn){
   userId = Mongo.ObjectID(userId);
 
   items.find({userId:userId}).toArray(function(err, records){
-    fn(records[0]);
+    fn(records);
   });
 };
 
@@ -137,7 +137,7 @@ Item.findByFilter = function(data, fn){
 Item.filterByTag = function(obj, fn){
   var tag = obj.tags;
   items.find({tags: {$in: [tag]}}).toArray(function(err, records){
-    console.log(records);
+    //console.log(records);
     fn(records);
   });
 };

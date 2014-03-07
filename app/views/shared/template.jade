@@ -27,6 +27,7 @@ html(class='no-js', lang='en')
               a(href='#')= user.userName ? user.userName : user.email
               ul.dropdown
                 li: a(href="/items") Items
+                li: a(href="/users/show") Profile
                 li: a(href="/items/new") New Item
                 li.has-form
                   form(action='/logout', method='post')

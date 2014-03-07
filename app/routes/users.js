@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('../models/user');
+var Item = require('../models/item');
 
 exports.auth = function(req, res){
   res.render('users/auth', {title: 'User Authentication'});
@@ -9,7 +10,7 @@ exports.auth = function(req, res){
 exports.register = function(req, res){
   var user = new User(req.body);
   user.hashPassword(function(){
-    user.addPhoto(req.files.userPhoto.path);
+    user.addPhoto(req.files.photo.path);
     user.insert(function(){
       console.log('>>>>>>>>', user);
       if(user._id){
@@ -46,7 +47,10 @@ exports.logout = function(req, res){
 
 exports.show = function(req, res){
   User.findById(req.session.userId, function(user){
-    res.render('users/show', {user:user});
+    Item.findByUserId(req.session.userId, function(items){
+      console.log('ITEMS!!!!!!',items);
+      res.render('users/show', {user:user, items:items});
+    });
   });
 };
 
