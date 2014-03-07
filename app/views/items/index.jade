@@ -2,7 +2,7 @@ extends ../shared/template
 
 block content
   h1 Items will be listed here
-  //each note in notes
-    //.note
-      //a(href='/notes/' + note._id)= note.title
+  ul
+  each item in items
+    li: a(href='/items/' + item._id)= item.title
 

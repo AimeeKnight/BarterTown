@@ -3,7 +3,7 @@ extends ../shared/template
 block content
   .row
     .small-12.columns
-      form(action='/items', method='post')
+      form(action='/items', method='post', enctype='multipart/form-data')
         fieldset
           legend= title
           .row
@@ -11,7 +11,19 @@ block content
               label Name
               input(name='name', type='text', autofocus=true)
           .row
+            .small-4.columns
+              label Description
+              input(name='description', type='text')
+          .row
+            .small-4.columns
+              label Tags
+              input(name='tags', type='text')
+          .row
+            .small-4.columns
+              label Photo
+              input(name='photo', type='file')
+          .row
             .small-12.columns
               button.small.radius Create
-            
+
 

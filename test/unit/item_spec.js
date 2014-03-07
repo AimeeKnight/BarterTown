@@ -59,7 +59,7 @@ describe('Item', function(){
                          userId:'222222222222222222222222'});
       var oldname = __dirname + '/../fixtures/item-copy1.png';
       i1.addPhoto(oldname);
-      expect(i1.photo).to.equal('/img/items/222222222222222222222222/Broom.png');
+      expect(i1.photo).to.equal('/img/items/Broom222222222222222222222222/Broom.png');
     });
   });
 
@@ -197,6 +197,7 @@ describe('Item', function(){
       i1.insert(function(){
         i1.toggleAvailable(function(){
           expect(i1.available).to.equal(true);
+          expect(i1.bidStartDate).to.be.instanceof(Date);
           done();
         });
       });
@@ -261,38 +262,46 @@ describe('Item', function(){
     });
   });
   describe('FILTERING', function(){
+    var i4, i5, i6;
     beforeEach(function(done){
       var i1 = new Item({name:'Broom',
                          description:'Description',
                          tags:'clean, random, tags',
+                         available: true,
                          userId:'222222222222222222222222'});
       var i2 = new Item({name:'Purse',
                          description:'Description',
                          tags:'item, random, tags',
+                         available: true,
                          userId:'333333333333333333333333'});
       var i3 = new Item({name:'Shoe',
                          description:'Description',
                          tags:'clothing, random, tags',
                          available: true,
                          userId:'444444444444444444444444'});
-      var i4 = new Item({name:'Couch',
+      i4 = new Item({name:'Couch',
                          description:'Description',
                          tags:'clothing, random, den',
+                         available: false,
                          userId:'222222222222222222222222'});
-      var i5 = new Item({name:'Table',
+      i5 = new Item({name:'Table',
                          description:'Description',
                          tags:'clean, random, den',
+                         available: false,
                          userId:'333333333333333333333333'});
-      var i6 = new Item({name:'Pen',
+      i6 = new Item({name:'Pen',
                          description:'Description',
                          tags:'unique, random, tags',
-                         available: true,
+                         available: false,
                          userId:'333333333333333333333333'});
       i1.insert(function(){
         i2.insert(function(){
           i3.insert(function(){
+            i4.bidStartDate = 300;
             i4.insert(function(){
+              i5.bidStartDate = 200;
               i5.insert(function(){
+                i6.bidStartDate = 100;
                 i6.insert(function(){
                   done();
                 });
@@ -304,27 +313,40 @@ describe('Item', function(){
     });
     describe('.findByFilter', function(){
       it('should return set limit number of items', function(){
-        var obj = {limit: 3};
+        var obj = {limit: 1};
         Item.findByFilter(obj, function(records){
-          expect(records.length).to.equal(3);
+          expect(records.length).to.equal(1);
         });
       });
       it('should return the desired page', function(){
-        var obj = {limit: 3, page: 2};
+        var obj = {limit: 2, page: 2};
         Item.findByFilter(obj, function(records){
           expect(records.length).to.equal(1);
         });
       });
       it('should return objects based on availability', function(){
-        var obj = {limit: 3, page: 0, available: true};
+        var obj = {limit: 3, page: 0, available: false};
         Item.findByFilter(obj, function(records){
-          expect(records.length).to.equal(2);
+          expect(records.length).to.equal(3);
+          expect(records[0].available).to.equal(false);
         });
       });
-      it('should sort by number of bids', function(){
+      it('should sort by bidStartDate', function(){
         var obj = {limit: 3, page: 0};
         Item.findByFilter(obj, function(records){
-          expect(records[0].name).to.equal('Broom');
+          expect(records[0].name).to.equal('Pen');
+          expect(records[2].name).to.equal('Couch');
+        });
+      });
+
+      describe('.filterByTag', function(){
+        it('should filter items by tag search', function(done){
+          var obj = {tags: 'den'};
+          Item.filterByTag(obj, function(records){
+            expect(records).to.have.length(2);
+            expect(records[0].name).to.equal('Couch' || 'Table');
+            done();
+          });
         });
       });
     });

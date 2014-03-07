@@ -22,12 +22,13 @@ Item.prototype.addPhoto = function(oldpath){
   // oldpath = temp folder
 
   // path to new location
-  var abspath = __dirname + '/../static/img/items/' + this.userId.toString();
-  fs.mkdirSync(abspath);
+  // NEED TO ADD IF STATEMENT SINCE DIR ALREADY EXISTS!!!!!
 
+  var abspath = __dirname + '/../static/img/items/' + this.name + this.userId.toString();
+  fs.mkdirSync(abspath);
   // grabs .png
   var extension = path.extname(oldpath);
-  var relpath = '/img/items/' + this.userId.toString() + '/' + this.name + extension;
+  var relpath = '/img/items/' + this.name + this.userId.toString() + '/' + this.name.replace(' ', '').trim() + extension;
 
   // abspath == /../static/img/item/this.userId/this.name.png
   abspath += '/' + this.name + extension;
@@ -85,7 +86,7 @@ Item.findByAvailable = function(fn){
 Item.prototype.toggleAvailable = function(fn){
   //var _id = Mongo.ObjectID(this._id);
   this.available = !this.available;
-  //this.available ? this.bidStartDate = new Date() : this.bidStartDate = '';
+  this.available ? this.bidStartDate = new Date() : this.bidStartDate = '';
   items.update({_id:this._id}, this, function(err, count){
     fn(err, count);
   });
@@ -125,14 +126,20 @@ Item.findByFilter = function(data, fn){
     page = parseInt((data.page)-1);
   }
 
-  var options = {'limit': limit, 'skip':(limit*page)};
-  data.available = !!(data.available) || false;
+  var options = {'limit': limit, 'skip':(limit*page), 'sort': 'bidStartDate'};
+  data.available = !!(data.available);
 
   delete data.limit;
   delete data.page;
-  console.log('data>>>>>', data);
   items.find(data, options).toArray(function(err, records){
-    console.log('records>>>>>', records);
+    fn(records);
+  });
+};
+
+Item.filterByTag = function(obj, fn){
+  var tag = obj.tags;
+  items.find({tags: {$in: [tag]}}).toArray(function(err, records){
+    console.log(records);
     fn(records);
   });
 };

@@ -5,6 +5,7 @@ var Item = require('../models/item');
 
 exports.index = function(req, res){
   Item.findByAvailable(function(items){
+    console.log(items);
     res.render('items/index', {title:'Items', items:items});
   });
 };

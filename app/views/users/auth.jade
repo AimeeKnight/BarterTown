@@ -3,7 +3,7 @@ extends ../shared/template
 block content
   .row
     .small-6.columns
-      form(action='/register', method='post')
+      form(action='/register', method='post', enctype='multipart/form-data')
         fieldset
           legend Register
           .row
@@ -14,6 +14,10 @@ block content
             .small-12.columns
               label Password
               input(name='password', type='password')
+          .row
+            .small-12.columns
+              label Add Photo
+              input(name='photo', type='file')
           .row
             .small-12.columns
               button.small.radius Register

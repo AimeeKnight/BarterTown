@@ -13,7 +13,7 @@ html(class='no-js', lang='en')
     nav.top-bar
       ul.title-area
         li.name
-          h1: a(href="/") BarterTown
+          h1: a(href="/") NashBA
         li.toggle-topbar.menu-icon
           a(href="#") Menu
 
@@ -21,14 +21,17 @@ html(class='no-js', lang='en')
         ul.left
         ul.right
           li: a(href="/") Home
+          li.divider
           if user
-            //li.divider
             //li: a(href="/items") Items
             //li.divider
             //li: a(href="/items/new") New Item
             li.has-form
               form(action='/logout', method='post')
                 button.small.alert= user.email
+                  //li: a(href="/items") Items
+                  //li.divider
+                  //li: a(href="/items/new") New Item
           else
             li.divider
             li: a(href="/auth") Register/Login

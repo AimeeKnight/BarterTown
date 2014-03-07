@@ -45,6 +45,9 @@ exports.logout = function(req, res){
 };
 
 exports.show = function(req, res){
-  res.render('users/show');
+  User.findById(req.session.userId, function(user){
+    res.render('users/show', {user:user});
+  });
 };
+
 
