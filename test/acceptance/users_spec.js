@@ -21,7 +21,7 @@ describe('users', function(){
 
   beforeEach(function(done){
     global.nss.db.dropDatabase(function(err, result){
-      sue = new User({email:'sue@aol.com', password:'abcd'});
+      sue = new User({email:'testsue@aol.com', password:'abcd'});
       sue.hashPassword(function(){
         sue.insert(function(){
           done();
@@ -60,7 +60,7 @@ describe('users', function(){
         var copyfile = __dirname + '/../fixtures/oprah-copy.jpg';
         fs.createReadStream(origfile).pipe(fs.createWriteStream(copyfile));
         global.nss.db.dropDatabase(function(err, result){
-          var s = new User({email:'sue@aol.com', password:'abcd'});
+          var s = new User({email:'testsue@aol.com', password:'abcd'});
           s.hashPassword(function(){
             s.insert(function(){
               done();
@@ -81,14 +81,15 @@ describe('users', function(){
         done();
       });
     });
-    /*
     it('should not register a user due to duplicate', function(done){
+      var oldname = __dirname + '/../fixtures/oprah-copy.jpg';
       request(app)
       .post('/register')
-      .field('email', 'sue@aol.com')
+      .field('email', 'testsue@aol.com')
       .field('password', 'abcd')
+      .attach('photo', oldname)
       .end(function(err, res){
-        expect(res.status).to.equal(302);
+        expect(res.status).to.equal(200);
         expect(res.text).to.include('User Authentication');
         done();
       });
@@ -98,7 +99,7 @@ describe('users', function(){
     it('should login a user', function(done){
       request(app)
       .post('/login')
-      .field('email', 'sue@aol.com')
+      .field('email', 'testsue@aol.com')
       .field('password', 'abcd')
       .end(function(err, res){
         expect(res.status).to.equal(302);
@@ -109,7 +110,7 @@ describe('users', function(){
     it('should not login a user due to bad login', function(done){
       request(app)
       .post('/login')
-      .field('email', 'bob@aol.com')
+      .field('email', 'testbob@aol.com')
       .field('password', '1234')
       .end(function(err, res){
         expect(res.status).to.equal(200);
@@ -122,7 +123,7 @@ describe('users', function(){
     beforeEach(function(done){
       request(app)
       .post('/login')
-      .field('email', 'sue@aol.com')
+      .field('email', 'testsue@aol.com')
       .field('password', 'abcd')
       .end(function(err, res){
         cookie = res.headers['set-cookie'];
@@ -140,7 +141,6 @@ describe('users', function(){
         });
       });
     });
-*/
   });
   /////END DESCRIBE
 });
