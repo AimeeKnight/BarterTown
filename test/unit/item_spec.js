@@ -205,5 +205,29 @@ describe('Item', function(){
       });
     });
   });
-/////////////
+
+  describe('#addBid', function(){
+    it('should find all available items ', function(done){
+      var i1 = new Item({name:'Broom',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         userId:'222222222222222222222222'});
+      var i2 = new Item({name:'Purse',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         userId:'333333333333333333333333'});
+      i1.insert(function(){
+        var item1Id =  i1._id.toString();
+        i2.insert(function(){
+          i2.addBid(item1Id, function(count){
+            expect(count).to.equal(1);
+            expect(i2.bids).to.have.length(1);
+            expect(i2.bids[0].toString()).to.equal(item1Id);
+            done();
+          });
+        });
+      });
+    });
+  });
+ ////////
 });

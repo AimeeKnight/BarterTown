@@ -88,3 +88,14 @@ Item.prototype.toggleAvailable = function(fn){
     fn(err, count);
   });
 };
+
+Item.prototype.addBid = function(bidItemId, fn){
+  var _bidItemId = Mongo.ObjectID(bidItemId);
+  var contain = _.contains(this.bids, _bidItemId);
+  if(!contain){
+    this.bids.push(_bidItemId);
+  }
+  items.update({_id:this._id}, this, function(err, count){
+    fn(count);
+  });
+};
