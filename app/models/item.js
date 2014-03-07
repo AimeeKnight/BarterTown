@@ -1,3 +1,4 @@
+/* jshint expr:true */
 'use strict';
 
 module.exports = Item;
@@ -57,7 +58,7 @@ Item.findById = function(id, fn){
   var _id = Mongo.ObjectID(id);
 
   items.findOne({_id:_id}, function(err, record){
-    fn(record);
+    fn(_.extend(record, Item.prototype));
   });
 };
 
@@ -84,6 +85,7 @@ Item.findByAvailable = function(fn){
 Item.prototype.toggleAvailable = function(fn){
   //var _id = Mongo.ObjectID(this._id);
   this.available = !this.available;
+  //this.available ? this.bidStartDate = new Date() : this.bidStartDate = '';
   items.update({_id:this._id}, this, function(err, count){
     fn(err, count);
   });
@@ -109,6 +111,7 @@ Item.removeBid = function(bidItemId, fn){
 };
 
 Item.findByFilter = function(data, fn){
+  //SET DEFAULTS FOR PAGING HERE---------
   var limit, page;
   if(!data.limit){
     limit = 5;

@@ -32,11 +32,13 @@ describe('items', function(){
           i1 = new Item({name:'Broom',
                          description:'Description',
                          tags:'some, random, tags',
+                         available: true,
                          userId:userId});
           i2 = new Item({name:'Sock',
                          description:'Description',
                          tags:'some, random, tags',
-                         userId:userId});
+                         available: true,
+                         userId:'666666666666666666666666'});
           i1.insert(function(){
             itemId = i1._id.toString();
             i2.insert(function(){
@@ -138,9 +140,18 @@ describe('items', function(){
   });
 
   describe('POST /trade/:originalItemId/:acceptedBidItemId', function(){
-    it('should make items unavailable', function(done){
+    it('should make items unavailable and flop userIds', function(done){
       request(app)
       .post('/items/trade/' + itemId + '/' + itemId2)
+      .set('cookie', cookie)
+      .expect(302, done);
+    });
+  });
+
+  describe('POST /offer/:id', function(){
+    it('should make items available for trade', function(done){
+      request(app)
+      .post('/items/offer/' + itemId)
       .set('cookie', cookie)
       .expect(302, done);
     });

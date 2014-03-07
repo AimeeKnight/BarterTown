@@ -188,7 +188,7 @@ describe('Item', function(){
     });
   });
   
-  describe('.deleteById', function(){
+  describe('#toggleAvailable', function(){
     it('should toggle availability', function(done){
       var i1 = new Item({name:'Broom',
                          description:'Description',
@@ -260,7 +260,6 @@ describe('Item', function(){
       });
     });
   });
-
   describe('FILTERING', function(){
     beforeEach(function(done){
       var i1 = new Item({name:'Broom',
@@ -303,7 +302,6 @@ describe('Item', function(){
         });
       });
     });
-
     describe('.findByFilter', function(){
       it('should return set limit number of items', function(){
         var obj = {limit: 3};
@@ -311,7 +309,25 @@ describe('Item', function(){
           expect(records.length).to.equal(3);
         });
       });
+      it('should return the desired page', function(){
+        var obj = {limit: 3, page: 2};
+        Item.findByFilter(obj, function(records){
+          expect(records.length).to.equal(1);
+        });
+      });
+      it('should return objects based on availability', function(){
+        var obj = {limit: 3, page: 0, available: true};
+        Item.findByFilter(obj, function(records){
+          expect(records.length).to.equal(2);
+        });
+      });
+      it('should sort by number of bids', function(){
+        var obj = {limit: 3, page: 0};
+        Item.findByFilter(obj, function(records){
+          expect(records[0].name).to.equal('Broom');
+        });
+      });
     });
   });
- ////////
 });
+ ////////

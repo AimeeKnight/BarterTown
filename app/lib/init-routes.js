@@ -29,6 +29,7 @@ function load(app, fn){
   app.post('/items', d, items.create);
   app.del('/items/:id', d, items.destroy);
   app.post('/items/trade/:id/:id2', d, items.trade);
+  app.post('/items/offer/:id', d, items.offer);
   console.log('Routes Loaded');
   fn();
 }
