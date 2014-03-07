@@ -96,6 +96,40 @@ Item.prototype.addBid = function(bidItemId, fn){
     this.bids.push(_bidItemId);
   }
   items.update({_id:this._id}, this, function(err, count){
+
     fn(count);
+  });
+};
+
+Item.removeBid = function(bidItemId, fn){
+  var _bidItemId = Mongo.ObjectID(bidItemId);
+  items.update({bids: _bidItemId}, { $pull: {bids: _bidItemId} }, {multi:true}, function(err, count){
+    fn(count);
+  });
+};
+
+Item.findByFilter = function(data, fn){
+  var limit, page;
+  if(!data.limit){
+    limit = 5;
+  }else{
+    limit = parseInt(data.limit);
+  }
+
+  if(!data.page){
+    page = 0;
+  }else{
+    page = parseInt((data.page)-1);
+  }
+
+  var options = {'limit': limit, 'skip':(limit*page)};
+  data.available = !!(data.available) || false;
+
+  delete data.limit;
+  delete data.page;
+  console.log('data>>>>>', data);
+  items.find(data, options).toArray(function(err, records){
+    console.log('records>>>>>', records);
+    fn(records);
   });
 };

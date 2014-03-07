@@ -25,7 +25,6 @@ describe('Item', function(){
   beforeEach(function(done){
     var testdir = __dirname + '/../../app/static/img/items/*';
     var cmd = 'rm -rf ' + testdir;
-
     exec(cmd, function(){
       var origfile = __dirname + '/../fixtures/item.png';
       var copy1file = __dirname + '/../fixtures/item-copy1.png';
@@ -141,9 +140,7 @@ describe('Item', function(){
   
   describe('.findByUserId', function(){
     it('should find by userId ', function(done){
-
       var sue = new User({email:'sue@aol.com', password:'abcd'});
-
       sue.hashPassword(function(){
         sue.insert(function(){
           userId = sue._id.toString();
@@ -225,6 +222,93 @@ describe('Item', function(){
             expect(i2.bids[0].toString()).to.equal(item1Id);
             done();
           });
+        });
+      });
+    });
+  });
+
+  describe('.removeBid', function(){
+    it('should remove a bid from all item bid arrays in the database', function(done){
+      var i1 = new Item({name:'Broom',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         userId:'222222222222222222222222'});
+      var i2 = new Item({name:'Purse',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         userId:'333333333333333333333333'});
+      var i3 = new Item({name:'Shoe',
+                         description:'Description',
+                         tags:'some, random, tags',
+                         available: true,
+                         userId:'433333333333333333333333'});
+      i1.insert(function(){
+        var item1Id =  i1._id.toString();
+        i2.insert(function(){
+          i3.insert(function(){
+            i2.addBid(item1Id, function(){
+              i3.addBid(item1Id, function(){
+                // item 1 is a bid placed on item 2 and item 3
+                Item.removeBid(item1Id, function(count){
+                  expect(count).to.equal(2);
+                  done();
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+
+  describe('FILTERING', function(){
+    beforeEach(function(done){
+      var i1 = new Item({name:'Broom',
+                         description:'Description',
+                         tags:'clean, random, tags',
+                         userId:'222222222222222222222222'});
+      var i2 = new Item({name:'Purse',
+                         description:'Description',
+                         tags:'item, random, tags',
+                         userId:'333333333333333333333333'});
+      var i3 = new Item({name:'Shoe',
+                         description:'Description',
+                         tags:'clothing, random, tags',
+                         available: true,
+                         userId:'444444444444444444444444'});
+      var i4 = new Item({name:'Couch',
+                         description:'Description',
+                         tags:'clothing, random, den',
+                         userId:'222222222222222222222222'});
+      var i5 = new Item({name:'Table',
+                         description:'Description',
+                         tags:'clean, random, den',
+                         userId:'333333333333333333333333'});
+      var i6 = new Item({name:'Pen',
+                         description:'Description',
+                         tags:'unique, random, tags',
+                         available: true,
+                         userId:'333333333333333333333333'});
+      i1.insert(function(){
+        i2.insert(function(){
+          i3.insert(function(){
+            i4.insert(function(){
+              i5.insert(function(){
+                i6.insert(function(){
+                  done();
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+
+    describe('.findByFilter', function(){
+      it('should return set limit number of items', function(){
+        var obj = {limit: 3};
+        Item.findByFilter(obj, function(records){
+          expect(records.length).to.equal(3);
         });
       });
     });

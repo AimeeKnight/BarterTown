@@ -15,7 +15,7 @@ module.exports = function(req, res, next){
 function load(app, fn){
   var home = require('../routes/home');
   var users = require('../routes/users');
-  //var notes = require('../routes/notes');
+  var items = require('../routes/items');
 
   app.get('/', d, home.index);
   app.get('/auth', d, users.auth);
@@ -23,10 +23,12 @@ function load(app, fn){
   app.post('/login', d, users.login);
   app.post('/logout', d, users.logout);
   app.get('/users/:id', d, users.show);
-  //app.post('/notes', d, notes.create);
-  //app.get('/notes/new', d, notes.fresh);
-  //app.get('/notes/:id', d, notes.show);
-  //app.del('/notes/:id', d, notes.destroy);
+  app.get('/items', d, items.index);
+  app.get('/items/new', d, items.new);
+  app.get('/items/:id', d, items.show);
+  app.post('/items', d, items.create);
+  app.del('/items/:id', d, items.destroy);
+  app.post('/items/trade/:id/:id2', d, items.trade);
   console.log('Routes Loaded');
   fn();
 }

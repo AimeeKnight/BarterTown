@@ -1,34 +1,36 @@
 'use strict';
 
-var Note = require('../models/note');
+var Item = require('../models/item');
 
 exports.index = function(req, res){
-  Note.findByUserId(req.session.userId, function(notes){
-    res.render('notes/index', {title:'Notes', notes:notes});
+  Item.findByAvailable(function(items){
+    res.render('items/index', {title:'Items', items:items});
   });
 };
 
-exports.fresh = function(req, res){
-  res.render('notes/new', {title:'New Note'});
+exports.new = function(req, res){
+  res.render('items/new', {title:'New Item'});
 };
 
 exports.show = function(req, res){
-  Note.findById(req.params.id, function(note){
-    res.render('notes/show', {title:note.title, note:note});
+  Item.findById(req.params.id, function(item){
+    res.render('items/show', {title:item.name, item:item});
   });
 };
 
 exports.create = function(req, res){
   req.body.userId = req.session.userId;
-  var note = new Note(req.body);
-  note.insert(function(){
-    res.redirect('/notes');
+  var item = new Item(req.body);
+  item.addPhoto(req.files.photo.path);
+  item.insert(function(record){
+    res.redirect('users/' + req.session.userId);
   });
 };
 
 exports.destroy = function(req, res){
-  Note.findByIdAndDelete(req.params.id, function(){
-    res.redirect('/notes');
+  Item.deleteById(req.params.id, function(){
+    res.redirect('users/' + req.session.userId);
   });
 };
+
 
