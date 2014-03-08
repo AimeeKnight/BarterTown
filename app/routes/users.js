@@ -2,6 +2,7 @@
 
 var User = require('../models/user');
 var Item = require('../models/item');
+var gravatar = require('gravatar');
 
 exports.auth = function(req, res){
   res.render('users/auth', {title: 'User Authentication'});
@@ -47,9 +48,10 @@ exports.logout = function(req, res){
 
 exports.show = function(req, res){
   User.findById(req.session.userId, function(user){
+    var url = gravatar.url(user.email, {s: '200', r: 'pg', d: '404'});
     Item.findByUserId(req.session.userId, function(items){
       console.log('ITEMS!!!!!!',items);
-      res.render('users/show', {user:user, items:items});
+      res.render('users/show', {user:user, items:items, gravatar: url});
     });
   });
 };

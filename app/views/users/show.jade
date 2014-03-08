@@ -1,13 +1,15 @@
 extends ../shared/template
 
 block content
-  h1.panel= user.userName
-  h4= user.email
+  div.panel
+    h1= user.userName
+    h4= user.email
   img(src= user.userPhoto).user-img
+  img(src= gravatar).user-img
 
   .row
     .small-6.columns
-      h1 Items List:
+      h3.panel Items List:
       table
         thead
           th Item
@@ -29,7 +31,7 @@ block content
                     input(type='hidden', name='_method', value='delete')
                     button.alert.small.radius Delete
     .small-6.columns
-      h1 Items for auction:
+      h3.panel Items for auction:
       table
         thead
           th Item
