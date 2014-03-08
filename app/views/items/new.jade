@@ -1,29 +1,22 @@
 extends ../shared/template
 
 block content
+  #newItemTitle
+    h2 Add An Item to Your Collection
   .row
-    .small-12.columns
-      form(action='/items', method='post', enctype='multipart/form-data')
-        fieldset
-          legend= title
-          .row
-            .small-4.columns
-              label Name
-              input(name='name', type='text', autofocus=true, required)
-          .row
-            .small-4.columns
-              label Description
-              input(name='description', type='text', placeholder='Tell us about your this item!', required)
-          .row
-            .small-4.columns
-              label Tags
-              input(name='tags', type='text', placeholder='sword, katana, awesome, metal', required)
-          .row
-            .small-4.columns
-              label Photo
-              input(name='photo', type='file', required)
-          .row
-            .small-12.columns
-              button.small.radius Create
-
-
+    .small-4.small-centered.columns
+      #createItemFormWrapper
+        form#createItemForm(action='/items', method='post', enctype='multipart/form-data')
+          label Name
+            input(name='name', type='text', autofocus=true, required)
+          label Tags
+            input(name='tags', type='text', placeholder='sword, katana, awesome, metal', required)
+          label Photo
+            input(name='photo', type='file', required)
+          button#createItemButton Create
+  #smallSpacer
+  .row
+    .small-4.small-centered.columns
+      #createItemTextAreaWrapper
+        h3 ITEM DESCRIPTION
+        textarea(name='description', cols='500', rows='15', form='createItemForm', placeholder='Tell us about your item!', required)

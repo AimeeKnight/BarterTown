@@ -1,5 +1,31 @@
 extends ../shared/template
 
 block content
-  h5 Welcome to Nashville Barter Association!
+  h2 Welcome to Nashville Barter Association!
+
+  .row
+    .small-12.columns
+      #spacer
+
+  .row
+    .small-8.columns#tabWrap
+      #tabWrapTitle HOW TO GET STARTED
+      dl(class="tabs vertical", data-tab)
+        dd(class="active"): a(href="#panel1a") SIGNUP
+        dd: a(href="#panel2a") LOGIN
+        dd: a(href="#panel3a") ADD ITEMS
+        dd: a(href="#panel4a") START BIDDING
+      div(class="tabs-content vertical")
+        div(class="content active", id="panel1a")
+          p.tabP Simply register your email and password using the link in the menu bar
+        div(class="content", id="panel2a")
+          p.tabP Login after recieving your confirmation e-mail
+        div(class="content", id="panel3a")
+          p.tabP Add items that you want to use to trade for other items
+        div(class="content", id="panel4a")
+          p.tabP See what items are available and start your bidding!!
+
+
+
+
 

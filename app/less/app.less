@@ -1,13 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Cuprum:400,400italic,700,700italic);
 
 @bg-color: #ffffff;
-
+@color1: #DC3D24;
+@color2: #232B2B;
+@color3: #FFFFFF;
+@color4: #E3AE57;
 * {
   font-family: 'Cuprum', sans-serif !important;
 }
-h1, h3, h4{
+h1, h4{
   color: white !important;
 }
+
 body{
   background-color: @bg-color;
   background-size: cover;
@@ -97,3 +101,90 @@ table{
 .item-list {
   margin: 20px;
 }
+
+//---------------------------------------//
+//-------------HOMEPAGE------------------//
+//---------------------------------------//
+#tabWrap{
+  background-color: @color4;
+  opacity: .9;
+  border-radius: 10px;
+  border: 5px solid darken(@color4, 30%);
+  padding: 10px;
+  width: 75%;
+  margin: auto;
+}
+
+
+h2{
+  margin-top: 20px;
+  color: @color1;
+  font-weight: bold;
+  font-size: 55px;
+  text-shadow: 2px 2px black;
+}
+
+#tabWrap p{
+  color: white;
+}
+
+#tabWrapTitle{
+  text-align: center;
+  color: @color2;
+  font-size: 50px;
+}
+
+#spacer{
+  height: 100px;
+}
+
+
+//---------------------------------------------//
+//---------------CREATE ITEM-------------------//
+//---------------------------------------------//
+#smallSpacer{
+  height: 50px;
+}
+#createItemForm{
+  width: 400px;
+  margin: auto;
+}
+
+#newItemTitle{
+  text-align: center;
+}
+
+#createItemButton{
+  background-color: lighten(@color2, 20%);
+  border-radius: 15px;
+  border: 2px solid @color1;
+  color: @color3;
+}
+
+#createItemForm{
+  background-color: @color4;
+  padding: 30px;
+  border: 3px solid darken(@color4, 20%);
+  border-radius: 20px;
+  text-align: center;
+}
+
+#createItemTextAreaWrapper{
+  text-align: center;
+}
+
+#createItemTextAreaWrapper textarea{
+  width: 400px;
+  height: 200px;
+  border: 3px solid darken(@color4, 20%);
+  border-radius: 20px;
+  background-color: lighten(@color2, 50%);
+  color: black;
+}
+
+#createItemTextAreaWrapper h3{
+  color: @color1;
+  font-weight: bold;
+}
+
+
