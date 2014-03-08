@@ -43,7 +43,9 @@ describe('items', function(){
             itemId = i1._id.toString();
             i2.insert(function(){
               itemId2 = i2._id.toString();
-              done();
+              i1.addBid(itemId2, function(){
+                done();
+              });
             });
           });
         });

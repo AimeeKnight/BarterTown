@@ -16,3 +16,11 @@ block content
         input(type='hidden', name='_method', value='delete', required)
         button.alert.small.radius Delete
 
+  .row
+    .small-6.columns
+      h5= originalUser.email
+    .small-6.columns
+      each item in bidItems
+        h3= item.name
+      //each item in item.bids
+

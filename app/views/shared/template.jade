@@ -23,6 +23,9 @@ html(class='no-js', lang='en')
           li: a(href="/") Home
           li.divider
           if user
+            li
+              #navPhoto
+                img(src= user.userPhoto)
             li.has-form.has-dropdown.not-click
               a(href='#')= user.userName ? user.userName : user.email
               ul.dropdown

@@ -1,10 +1,11 @@
 'use strict';
 
 var Item = require('../models/item');
-//var User = require('../models/user');
+var User = require('../models/user');
 //var request = require('request');
 //var fs = require('fs');
-// var Mongo = require('mongodb');
+//var Mongo = require('mongodb');
+var _ = require('lodash');
 
 exports.index = function(req, res){
   Item.findByAvailable(function(items){
@@ -18,10 +19,43 @@ exports.new = function(req, res){
 };
 
 exports.show = function(req, res){
+  var bidItems = [];
   Item.findById(req.params.id, function(item){
-    res.render('items/show', {item:item});
+
+    _.forEach(item.bids, function(bidItemId){
+
+      Item.findById(bidItemId.toString(), function(bidItem){
+        bidItems.push(bidItem);
+      });
+    });
+
+    User.findById(item.userId.toString(), function(originalUser){
+
+
+      res.render('items/show', {item:item, originalUser:originalUser, bidItems:bidItems, loggedInUser:req.session.userId});
+    });
   });
 };
+
+/*
+exports.show = function(req, res){
+  var bidItems = [];
+  Item.findById(req.params.id, function(item){
+    User.findById(item.userId, function(originalUser){
+
+      _.forEach(item.bids, function(bidItemId){
+
+        Item.findById(bidItemId, function(bidItem){
+          bidItems.push(bidItem);
+          console.log(bidItems);
+        });
+      });
+
+      res.render('items/show', {item:item, originalUser:originalUser, bidItems:bidItems, loggedinUser:req.session.userId});
+    });
+  });
+});
+*/
 
 exports.create = function(req, res){
   req.body.userId = req.session.userId;
@@ -39,14 +73,14 @@ exports.destroy = function(req, res){
 };
 
 exports.trade = function(req, res){
-  var id1 = req.params.id.trim();
-  var id2 = req.params.id2.trim();
+  // trade route gets passed the initiating User's Id followed by 
+  // the winning User's id => item/trade/initatingUserId/winningUserId
+  var userId1 = req.params.id.trim();
+  var userId2 = req.params.id2.trim();
   var temp;
 
-  Item.findById(id1, function(item1){
-    //sendTradeEmail(id1, item1);
-    Item.findById(id2, function(item2){
-      //sendTradeEmail(id2, item2);
+  Item.findById(userId1, function(item1){
+    Item.findById(userId2, function(item2){
       temp = item1.userId;
       item1.userId = item2.userId;
       item2.userId = temp;
@@ -85,7 +119,7 @@ function sendTradeEmail(userId){
     form.append('to', user.email);
     form.append('subject', 'Your recent trade');
     form.append('text', 'Below is a picture of your new item!');
-    form.append('attachment', fs.createReadStream(__dirname + item.photo));
+    //form.append('attachment', fs.createReadStream(__dirname + item.photo));
 
   });
 }

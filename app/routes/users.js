@@ -14,7 +14,6 @@ exports.register = function(req, res){
   user.hashPassword(function(){
     user.addPhoto(req.files.userPhoto.path);
     user.insert(function(){
-      console.log('>>>>>>>>', user);
       if(user._id){
         var key = process.env.MAILGUN;
         var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
