@@ -1,22 +1,33 @@
+
+//----------Fonts----------------//
+
 @import url(http://fonts.googleapis.com/css?family=Cuprum:400,400italic,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Exo:400,700,800,900);
+
+
+//----------Colors---------------//
 
 @bg-color: #ffffff;
-@color1: #DC3D24;
-@color2: #232B2B;
-@color3: #FFFFFF;
-@color4: #E3AE57;
+@color1: #DC3D24; //orangish
+@color2: #232B2B; //dark grey
+@color3: #FFFFFF; //whiteish
+@color4: #E3AE57; //Tan
+@color5: rgba(255,255,255, 0.8);
+@color6: #B4E23C; //lightgreen
+
 * {
   font-family: 'Cuprum', sans-serif !important;
 }
+
 h1, h4{
   color: white !important;
 }
 
 body{
-  background-color: @bg-color;
-  background-size: cover;
+  //background-size: cover;
   font-family: 'Cuprum', sans-serif;
-  background-image: url('http://upload.wikimedia.org/wikipedia/commons/0/05/Items_at_the_Junk_Yard_%287026999459%29.jpg');
+  //background-image: url('http://upload.wikimedia.org/wikipedia/commons/0/05/Items_at_the_Junk_Yard_%287026999459%29.jpg');
+  background-color: lighten(@color2, 20%);
 }
 
 fieldset{
@@ -113,6 +124,7 @@ table{
   padding: 10px;
   width: 75%;
   margin: auto;
+  margin-bottom: 75px;
 }
 
 
@@ -135,9 +147,43 @@ h2{
 }
 
 #spacer{
-  height: 100px;
+  height: 200px;
 }
 
+#headerWrapper{
+  height: 125px;
+  background-color: @color5;
+  text-align: center;
+  padding-top: 3px;
+}
+
+#homeHead {
+  color: @color6;
+  font-family: 'Exo', sans-serif;
+  font-size: 76px;
+  font-weight: bold;
+  text-shadow: 4px 4px @color2;
+}
+
+#homeHeadWrap{
+  text-align: center;
+  margin: 30px;
+}
+
+#homePicture{
+  background-image: url('http://upload.wikimedia.org/wikipedia/commons/0/05/Items_at_the_Junk_Yard_%287026999459%29.jpg');
+  background-size: cover;
+}
+
+#restOfHomePage{
+  margin-top: 10px;
+  color: white;
+}
+
+#restOfHomePage h6{
+  margin-top: 10px;
+  color: white;
+}
 
 //---------------------------------------------//
 //---------------CREATE ITEM-------------------//
@@ -186,5 +232,4 @@ h2{
   color: @color1;
   font-weight: bold;
 }
-
 
