@@ -1,6 +1,9 @@
 'use strict';
 
 var Item = require('../models/item');
+//var User = require('../models/user');
+//var request = require('request');
+//var fs = require('fs');
 // var Mongo = require('mongodb');
 
 exports.index = function(req, res){
@@ -41,7 +44,9 @@ exports.trade = function(req, res){
   var temp;
 
   Item.findById(id1, function(item1){
+    //sendTradeEmail(id1, item1);
     Item.findById(id2, function(item2){
+      //sendTradeEmail(id2, item2);
       temp = item1.userId;
       item1.userId = item2.userId;
       item2.userId = temp;
@@ -65,4 +70,24 @@ exports.offer = function(req, res){
 
   res.redirect('users/' + req.session.userId);
 };
+
+/*
+function sendTradeEmail(userId){
+  User.findById(userId, function(user, item){
+
+    var key = process.env.MAILGUN;
+    var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
+    var post = request.post(url, function(err, response, body){
+      //res.redirect('/');
+    });
+    var form = post.form();
+    form.append('from', 'aimeemarieknight@gmail.com');
+    form.append('to', user.email);
+    form.append('subject', 'Your recent trade');
+    form.append('text', 'Below is a picture of your new item!');
+    form.append('attachment', fs.createReadStream(__dirname + item.photo));
+
+  });
+}
+*/
 
