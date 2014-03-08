@@ -1,14 +1,22 @@
-@import url(http://fonts.googleapis.com/css?family=Gafata);
+@import url(http://fonts.googleapis.com/css?family=Cuprum:400,400italic,700,700italic);
 
 @bg-color: #ffffff;
+
+* {
+  font-family: 'Cuprum', sans-serif !important;
+}
 
 body{
   background-color: @bg-color;
   background-size: cover;
+  font-family: 'Cuprum', sans-serif;
+}
+
+.panel {
+  text-align: center;
 }
 
 .album{
-  font-family: 'Gafata', sans-serif;
   font-size: 12px;
   border: 1px dashed #252525;
   margin: 0px 25px 25px 0px;
@@ -39,12 +47,40 @@ body{
 }
 
 .item-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  border-radius: 10px;
+  //height: 100px;
 }
 
 .user-img {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  border-radius: 15px;
+  border: 3px solid #008cba;
+  //height: 100px;
 }
 
+.item-img-large {
+  width: 300px;
+  //height: 300px;
+  border-radius: 15px;
+}
+
+.item-img-small {
+  width: 100px;
+  //height: 300px;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+table{
+  width: 100% !important;
+}
+
+.item {
+  display: inline-block;
+  margin-left: 35px;
+}
+
+.item-list {
+  margin: 20px;
+}

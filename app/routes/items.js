@@ -6,7 +6,7 @@ var Item = require('../models/item');
 exports.index = function(req, res){
   Item.findByAvailable(function(items){
     console.log(items);
-    res.render('items/index', {title:'Items', items:items});
+    res.render('items/index', {title:'Items Available for Bid!', items:items});
   });
 };
 
@@ -16,7 +16,7 @@ exports.new = function(req, res){
 
 exports.show = function(req, res){
   Item.findById(req.params.id, function(item){
-    res.render('items/show', {title:item.name, item:item});
+    res.render('items/show', {item:item});
   });
 };
 

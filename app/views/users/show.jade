@@ -1,15 +1,50 @@
 extends ../shared/template
 
 block content
-  h1= user.userName
+  h1.panel= user.userName
   h4= user.email
   img(src= user.userPhoto).user-img
 
-  h1 Items List:
-  each item in items
-    h4= item.name
-    img(src= item.photo).item-img
-
+  .row
+    .small-6.columns
+      h1 Items List:
+      table
+        thead
+          th Item
+          th photo
+          th Auction
+          th delete
+        tbody
+          each item in items
+            if item.available == false
+              tr
+                td: a(href='/items/' + item._id)= item.name
+                td: img(src= item.photo).user-image
+                td  
+                  form(action='/items/offer/' + item._id, method='post')
+                    input(type='hidden', name='_method', value='post')
+                    button.small.radius Add To Auction
+                td
+                  form(action='/items/' + item._id, method='post')
+                    input(type='hidden', name='_method', value='delete')
+                    button.alert.small.radius Delete
+    .small-6.columns
+      h1 Items for auction:
+      table
+        thead
+          th Item
+          th photo
+          th Remove
+        tbody
+          each item in items
+            if item.available == true
+              tr
+                td: a(href='/items/' + item._id)= item.name
+                td: img(src= item.photo).item-img
+                td 
+                  form(action='/items/offer/' + item._id, method='post')
+                    input(type='hidden', name='_method', value='post')
+                    button.small.radius Remove From Auction
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')
     //button.alert.small.radius Delete

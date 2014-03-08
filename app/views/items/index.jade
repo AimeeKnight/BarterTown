@@ -1,8 +1,8 @@
 extends ../shared/template
 
 block content
-  h1 Items will be listed here
-  ul
   each item in items
-    li: a(href='/items/' + item._id)= item.title
+    div.item-list
+      img(src= item.photo).item-img-small
+      a(href='/items/' + item._id)= item.name
 

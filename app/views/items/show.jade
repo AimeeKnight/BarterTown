@@ -1,12 +1,18 @@
 extends ../shared/template
 
 block content
-  h1= title
-  h3= item.description
-  h3= item.tags
-  img(src= item.photo).item-img
+  h1.panel= item.name
+  img(src= item.photo).item-img-large
+  .item
+    h3 Item Description:
+      p.inline= item.description
+    h3 Tags:
+      p.inline= item.tags
 
-  form(action='/items/' + item._id, method='post')
-    input(type='hidden', name='_method', value='delete', required)
-    button.alert.small.radius Delete
+  .row
+    .small-12.columns
+      br
+      form(action='/items/' + item._id, method='post')
+        input(type='hidden', name='_method', value='delete', required)
+        button.alert.small.radius Delete
 
