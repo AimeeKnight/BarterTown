@@ -72,16 +72,7 @@ describe('items', function(){
         done();
       });
     });
-/*
-    describe('GET /items', function(){
-      it('should display items page if user is logged in', function(done){
-        request(app)
-        .get('/items')
-        .set('cookie', cookie)
-        .expect(200, done);
-      });
-    });
-  */
+
     describe('GET /items/new', function(){
       it('should display new items page if user is logged in', function(done){
         request(app)

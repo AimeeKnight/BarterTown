@@ -52,7 +52,6 @@ Item.findByUserId = function(userId, fn){
   });
 };
 
-
 Item.findById = function(id, fn){
   var _id = Mongo.ObjectID(id);
 

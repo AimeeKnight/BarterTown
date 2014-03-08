@@ -23,6 +23,7 @@ function load(app, fn){
   app.post('/login', d, users.login);
   app.post('/logout', d, users.logout);
   app.get('/users/:id', d, users.show);
+
   app.get('/items', d, items.index);
   app.get('/items/new', d, items.new);
   app.get('/items/:id', d, items.show);
@@ -30,6 +31,7 @@ function load(app, fn){
   app.del('/items/:id', d, items.destroy);
   app.post('/items/trade/:id/:id2', d, items.trade);
   app.post('/items/offer/:id', d, items.offer);
+
   console.log('Routes Loaded');
   fn();
 }
