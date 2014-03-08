@@ -37,26 +37,6 @@ exports.show = function(req, res){
   });
 };
 
-/*
-exports.show = function(req, res){
-  var bidItems = [];
-  Item.findById(req.params.id, function(item){
-    User.findById(item.userId, function(originalUser){
-
-      _.forEach(item.bids, function(bidItemId){
-
-        Item.findById(bidItemId, function(bidItem){
-          bidItems.push(bidItem);
-          console.log(bidItems);
-        });
-      });
-
-      res.render('items/show', {item:item, originalUser:originalUser, bidItems:bidItems, loggedinUser:req.session.userId});
-    });
-  });
-});
-*/
-
 exports.create = function(req, res){
   req.body.userId = req.session.userId;
   var item = new Item(req.body);
