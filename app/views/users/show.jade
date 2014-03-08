@@ -8,6 +8,7 @@ block content
   h1 Items List:
   each item in items
     h4= item.name
+    img(src= item.photo).item-img
 
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')

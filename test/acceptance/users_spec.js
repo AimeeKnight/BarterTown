@@ -69,25 +69,27 @@ describe('users', function(){
         });
       });
     });
+
     it('should register a user', function(done){
       var oldname = __dirname + '/../fixtures/oprah-copy.jpg';
       request(app)
       .post('/register')
       .field('email', 'testbob@aol.com')
       .field('password', '1234')
-      .attach('photo', oldname)
+      .attach('userPhoto', oldname)
       .end(function(err, res){
         expect(res.status).to.equal(302);
         done();
       });
     });
+
     it('should not register a user due to duplicate', function(done){
       var oldname = __dirname + '/../fixtures/oprah-copy.jpg';
       request(app)
       .post('/register')
       .field('email', 'testsue@aol.com')
       .field('password', 'abcd')
-      .attach('photo', oldname)
+      .attach('userPhoto', oldname)
       .end(function(err, res){
         expect(res.status).to.equal(200);
         expect(res.text).to.include('User Authentication');
@@ -95,6 +97,7 @@ describe('users', function(){
       });
     });
   });
+
   describe('POST /login', function(){
     it('should login a user', function(done){
       request(app)
@@ -107,6 +110,7 @@ describe('users', function(){
         done();
       });
     });
+
     it('should not login a user due to bad login', function(done){
       request(app)
       .post('/login')
@@ -119,6 +123,7 @@ describe('users', function(){
       });
     });
   });
+
   describe('AUTHORIZED', function(){
     beforeEach(function(done){
       request(app)
@@ -130,6 +135,7 @@ describe('users', function(){
         done();
       });
     });
+
     describe('GET /users:id', function(){
       it('should login a user', function(done){
         request(app)

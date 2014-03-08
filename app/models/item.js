@@ -22,14 +22,14 @@ Item.prototype.addPhoto = function(oldpath){
   // oldpath = temp folder
 
   // path to new location
-  var abspath = __dirname + '/../static/img/items/' + this.name.replace(' ', '') + this.userId.toString();
+  var abspath = __dirname + '/../static/img/items/' + this.name.replace(/\s/g, '') + this.userId.toString();
   fs.mkdirSync(abspath);
   // grabs .png
   var extension = path.extname(oldpath);
-  var relpath = '/img/items/' + this.name.replace(' ', '') + this.userId.toString() + '/' + this.name.replace(' ', '').trim() + extension;
+  var relpath = '/img/items/' + this.name.replace(/\s/g, '') + this.userId.toString() + '/' + this.name.replace(/\s/g, '').trim() + extension;
 
   // abspath == /../static/img/item/this.userId/this.name.png
-  abspath += '/' + this.name + extension;
+  abspath += '/' + this.name.replace(/\s/g, '') + extension;
   // renameSync moves file
   fs.renameSync(oldpath, abspath);
   // sets photo path
