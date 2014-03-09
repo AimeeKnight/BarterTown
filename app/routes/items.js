@@ -70,9 +70,7 @@ exports.trade = function(req, res){
           item1.userId = item2.userId;
           item2.userId = temp;
           sendTradeEmail(originalItemUser, item2);
-          console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ITEM 2', item2);
           sendTradeEmail(winningItemUser, item1);
-          console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ITEM 1', item1);
 
           // set items to unavailable (does an update)
           item1.toggleAvailable(function(){
