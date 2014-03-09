@@ -2,20 +2,14 @@ extends ../shared/template
 
 block content
   h1.panel= item.name
-  img(src= item.photo).item-img-large
-  .item
-    h3 Item Description:
-      p.inline= item.description
-    h3 Tags:
-      p.inline= item.tags
-
   .row
     .small-12.columns
-      br
-      form(action='/items/' + item._id, method='post')
-        input(type='hidden', name='_method', value='delete', required)
-        button.alert.small.radius Delete
-
+      img(src= item.photo).item-img-large
+      .item
+        h3 Item Description:
+          p.inline= item.description
+        h3 Tags:
+          p.inline= item.tags
   .row
     .small-6.columns
       h5= originalUser.email
@@ -24,15 +18,18 @@ block content
         h3= item.name
 
   .row
-    .small-4.columns
-      if loggedInUser !== originalUser
-        select
-          each thing in userItems
-            option= thing.name
+    .small-12.columns
+      if loggedInUser == originalUser
         form(action='/items/' + item._id, method='post')
           input(type='hidden', name='_method', value='delete', required)
-          button.alert.small.radius Delete
-          button#makeBid.radius Make Bid
+          button.alert.small.radius Remove
+  .row
+    .small-4.columns
+      if loggedInUser !== originalUser
+        select#itemSelect
+          each thing in userItems
+            option(value= thing.name)= thing.name
+        button#trade.small.radius Make Bid With This Item
     .small-8.columns
       //each item in item.bids
 
