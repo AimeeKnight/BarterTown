@@ -31,8 +31,9 @@ exports.show = function(req, res){
     });
 
     User.findById(item.userId.toString(), function(originalUser){
-
-      res.render('items/show', {item:item, originalUser:originalUser, bidItems:bidItems, loggedInUser:req.session.userId});
+      Item.findByUserId(req.session.userId, function(userItems){
+        res.render('items/show', {item:item, originalUser:originalUser, bidItems:bidItems, userItems:userItems, loggedInUser:req.session.userId});
+      });
     });
   });
 };
@@ -78,10 +79,8 @@ exports.trade = function(req, res){
 
             });
           });
-
         });
       });
-
     });
   });
 

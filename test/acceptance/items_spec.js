@@ -93,7 +93,7 @@ describe('items', function(){
 
     describe('POST /items', function(){
       before(function(done){
-        var testdir = __dirname + '/../../app/static/img/items/*';
+        var testdir = __dirname + '/../../app/static/img/items/test*';
         var cmd = 'rm -rf ' + testdir;
 
         exec(cmd, function(){
@@ -112,7 +112,7 @@ describe('items', function(){
           request(app)
           .post('/items')
           .set('cookie', cookie)
-          .field('name', 'Broom')
+          .field('name', 'test Broom')
           .field('description', 'It\'s a broom!')
           .field('userId', userId)
           .field('tags', 'Test, Note, Title')

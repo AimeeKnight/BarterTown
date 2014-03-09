@@ -22,5 +22,12 @@ block content
     .small-6.columns
       each item in bidItems
         h3= item.name
+
+  .row
+    .small-12.columns
+      if loggedInUser !== originalUser
+        select
+          each thing in userItems
+            option= thing.name
       //each item in item.bids
 

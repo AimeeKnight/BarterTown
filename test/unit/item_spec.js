@@ -23,7 +23,7 @@ describe('Item', function(){
   });
 
   beforeEach(function(done){
-    var testdir = __dirname + '/../../app/static/img/items/*';
+    var testdir = __dirname + '/../../app/static/img/items/test*';
     var cmd = 'rm -rf ' + testdir;
     exec(cmd, function(){
       var origfile = __dirname + '/../fixtures/item.png';
@@ -53,19 +53,19 @@ describe('Item', function(){
 
   describe('#addPhoto', function(){
     it('should add a photo to the item', function(){
-      var i1 = new Item({name:'Broom',
+      var i1 = new Item({name:'testBroom',
                          description:'Description',
                          tags:'some, random, tags',
                          userId:'222222222222222222222222'});
       var oldname = __dirname + '/../fixtures/item-copy1.png';
       i1.addPhoto(oldname);
-      expect(i1.photo).to.equal('/img/items/Broom222222222222222222222222/Broom.png');
+      expect(i1.photo).to.equal('/img/items/testBroom222222222222222222222222/testBroom.png');
     });
   });
 
   describe('#insert', function(){
     it('should insert a new Note object', function(done){
-      var i1 = new Item({name:'Broom',
+      var i1 = new Item({name:'testBroom',
                          description:'Description',
                          tags:'some, random, tags',
                          userId:'222222222222222222222222'});
