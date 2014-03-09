@@ -24,10 +24,15 @@ block content
         h3= item.name
 
   .row
-    .small-12.columns
+    .small-4.columns
       if loggedInUser !== originalUser
         select
           each thing in userItems
             option= thing.name
+        form(action='/items/' + item._id, method='post')
+          input(type='hidden', name='_method', value='delete', required)
+          button.alert.small.radius Delete
+          button#makeBid.radius Make Bid
+    .small-8.columns
       //each item in item.bids
 
