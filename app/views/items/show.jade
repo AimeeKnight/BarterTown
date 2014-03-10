@@ -44,5 +44,9 @@ block content
           each thing in userItems
             option(value= thing._id)= thing.name
         button#offer-item.small.radius Make Offer
-    .small-8.columns
+    .small-4.columns
+        div
+        #alert-box.hide(data-alert class="alert-box success radius") Successfully made a bid!
+          a.close(href="#")&times;
+    .small-4.columns
       //each item in item.bids

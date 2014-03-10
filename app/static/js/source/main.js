@@ -16,7 +16,7 @@
   function offer(){
     var url = window.location.origin + '/items/offer/' + $('#itemSelect').find(':selected').val() + '/' + $('#item-id').text();
     var type = 'POST';
-    var success = console.log('bid made');
+    var success = $('#alert-box').toggleClass('hide');
     $.ajax({url:url, type:type, success:success});
   }
 

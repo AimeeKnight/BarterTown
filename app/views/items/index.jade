@@ -20,8 +20,10 @@ block content
               input#limit(type='text')
             .small-6.columns
               button#limitButton.tiny.radius # Shown
+      ul.small-block-grid-3
       each item in items
         .item-list
-          img(src= item.photo).item-img-small
-          a(href='/items/' + item._id)= item.name
+          li 
+            img(src= item.photo).item-img-small
+            a(href='/items/' + item._id)= item.name
 
