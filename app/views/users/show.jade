@@ -55,4 +55,20 @@ block content
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')
     //button.alert.small.radius Delete
-
+  a.radius.button(href="#" data-reveal-id="myModal") 
+  .row
+    .small-12.columns
+      div#myModal.reveal-modal.small(data-reveal)
+        .row
+          .small-6.columns
+            form#createItemForm(action='/items', method='post', enctype='multipart/form-data')
+              label Name
+                input(name='name', type='text', autofocus=true, required)
+              label Tags
+                input(name='tags', type='text', placeholder='sword, katana, awesome, metal', required)
+              label Photo
+                input(name='photo', type='file', required)
+              label description
+                textarea(name='description', cols='300', rows='15', placeholder='Tell us about your item!', required)
+                button#createItemButton.close-reveal-model Create
+        a.close-reveal-modal &#215;

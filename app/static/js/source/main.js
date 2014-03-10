@@ -8,6 +8,9 @@
     $(document).foundation();
     $('#offers').on('click', '#offer-item', offer);
     $('#winning-item').click(trade);
+    $('#next').click(nextPage);
+    $('#prev').click(prevPage);
+    $('#limitButton').click(limitItems);
   }
 
   function offer(){
@@ -28,5 +31,25 @@
     $.ajax({url:url, type:type, success:success});
   }
 
+  function nextPage(){
+    var url = window.location.origin;
+    var obj = {move: 'next'};
+    var type = 'GET';
+    $.ajax({url: url, data: obj, type: type});
+  }
+
+  function prevPage(){
+    var url = window.location.origin;
+    var obj = {move: 'prev'};
+    var type = 'GET';
+    $.ajax({url: url, data: obj, type: type});
+  }
+
+  function limitItems(){
+    var limit = $('#limit').val();
+    var url = window.location.origin + '?limit='+limit;
+    var type = 'GET';
+    $.ajax({url: url, type: type});
+  }
 })();
 

@@ -1,8 +1,27 @@
 extends ../shared/template
 
 block content
-  each item in items
-    div.item-list
-      img(src= item.photo).item-img-small
-      a(href='/items/' + item._id)= item.name
+  .row
+    .small-12.columns
+      .row#clearFilter
+        .small-6.columns
+          .row
+            .small-3.columns
+              button#prev.tiny.radius.right Previous
+            .small-3.columns
+              button#next.tiny.radius.left Next
+            .small-3.columns
+              input#page.right(type='text')
+            .small-3.columns
+              button#goToPage.tiny.radius.left Go
+        .small-6.columns
+          .row
+            .small-6.columns
+              input#limit(type='text')
+            .small-6.columns
+              button#limitButton.tiny.radius # Shown
+      each item in items
+        .item-list
+          img(src= item.photo).item-img-small
+          a(href='/items/' + item._id)= item.name
 
