@@ -16,12 +16,12 @@ exports.register = function(req, res){
     user.insert(function(){
       if(user._id){
         var key = process.env.MAILGUN;
-        var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
+        var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox45740.mailgun.org/messages';
         var post = request.post(url, function(err, response, body){
           res.redirect('/');
         });
         var form = post.form();
-        form.append('from', 'aimeemarieknight@gmail.com');
+        form.append('from', 'steve.a.finley@gmail.com');
         form.append('to', user.email);
         form.append('subject', 'Thank you for registering with NashBA!');
         form.append('text', 'Thank you for registering with the Nashville Barter Association. Happy Bartering.');

@@ -86,24 +86,29 @@ exports.trade = function(req, res){
 
   Item.findById(itemId1, function(item1){
     item1.bids = [];
-    Item.findById(itemId2, function(item2){
+    Item.removeBid(itemId1, function(){
+      Item.findById(itemId2, function(item2){
+        item2.bids = [];
+        Item.removeBid(itemId2, function(){
 
-      User.findById(item1.userId.toString(), function(originalItemUser){
-        sendOriginalEmail(originalItemUser, item2);
+          User.findById(item1.userId.toString(), function(originalItemUser){
+            sendOriginalEmail(originalItemUser, item2);
 
-        User.findById(item2.userId.toString(), function(winningItemUser){
-          sendTradeEmail(winningItemUser, item1);
+            User.findById(item2.userId.toString(), function(winningItemUser){
+              sendTradeEmail(winningItemUser, item1);
 
-          // flip flop owners
-          temp = item1.userId;
-          item1.userId = item2.userId;
-          item2.userId = temp;
+              // flip flop owners
+              temp = item1.userId;
+              item1.userId = item2.userId;
+              item2.userId = temp;
 
-          // set items to unavailable (does an update)
-          item1.toggleAvailable(function(){
-            item2.toggleAvailable(function(){
-              //res.redirect('/');
-              res.redirect('users/' + req.session.userId);
+              // set items to unavailable (does an update)
+              item1.toggleAvailable(function(){
+                item2.toggleAvailable(function(){
+                  //res.redirect('/');
+                  res.redirect('users/' + req.session.userId);
+                });
+              });
             });
           });
         });
@@ -130,12 +135,12 @@ exports.offer = function(req, res){
 
 function sendOriginalEmail(originalUser, item){
   var key = process.env.MAILGUN;
-  var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
+  var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox45740.mailgun.org/messages';
   var post = request.post(url, function(err, response, body){
     //res.redirect('/');
   });
   var form = post.form();
-  form.append('from', 'aimeemarieknight@gmail.com');
+  form.append('from', 'steve.a.finley@gmail.com');
   form.append('to', originalUser.email);
   form.append('subject', 'Your recent trade');
   form.append('text', 'Congrats! You are the proud owner of a ' + item.name);
@@ -144,12 +149,12 @@ function sendOriginalEmail(originalUser, item){
 
 function sendTradeEmail(winningUser, item){
   var key = process.env.MAILGUN;
-  var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
+  var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox45740.mailgun.org/messages';
   var post = request.post(url, function(err, response, body){
     //res.redirect('/');
   });
   var form = post.form();
-  form.append('from', 'aimeemarieknight@gmail.com');
+  form.append('from', 'steve.a.finley@gmail.com');
   form.append('to', winningUser.email);
   form.append('subject', 'Your recent trade');
   form.append('text', 'Congrats, your item won! You are now the proud owner of a ' + item.name);

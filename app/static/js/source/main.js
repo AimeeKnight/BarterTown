@@ -42,7 +42,7 @@
 
   function prevPage(){
     var limitVal = $('#limit').val();
-    window.location.href = ('/items?move='+limitVal+'prev');
+    window.location.href = ('/items?limit='+limitVal+'&move=prev');
   }
 
   function limitItems(){
