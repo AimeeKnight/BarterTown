@@ -1,11 +1,15 @@
 extends ../shared/template
 
 block content
-  div.panel
-    h1= user.userName
-    h4= user.email
-  img(src= user.userPhoto).user-img
-  img(src= gravatar).user-img
+  .row
+    .small-12.columns
+      div.panel
+        h1= user.userName
+        h4= user.email
+        if gravatar
+          img(src= gravatar).user-img
+        if !gravatar
+          img(src= user.userPhoto).user-img
 
   .row
     .small-6.columns
@@ -13,9 +17,9 @@ block content
       table
         thead
           th Item
-          th photo
+          th Photo
           th Auction
-          th delete
+          th Delete
         tbody
           each item in items
             if item.available == false
@@ -23,7 +27,7 @@ block content
                 td: a(href='/items/' + item._id)= item.name
                 td: img(src= item.photo).user-image
                 td  
-                  form(action='/items/offer/' + item._id, method='post')
+                  form(action='/items/toggle/' + item._id, method='post')
                     input(type='hidden', name='_method', value='post')
                     button.small.radius Add To Auction
                 td
@@ -44,9 +48,10 @@ block content
                 td: a(href='/items/' + item._id)= item.name
                 td: img(src= item.photo).item-img
                 td 
-                  form(action='/items/offer/' + item._id, method='post')
-                    input(type='hidden', name='_method', value='post')
-                    button.small.radius Remove From Auction
+                  if item.bids.length === 0
+                    form(action='/items/toggle/' + item._id, method='post')
+                      input(type='hidden', name='_method', value='post')
+                      button.small.radius Remove From Auction
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')
     //button.alert.small.radius Delete

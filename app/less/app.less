@@ -1,60 +1,68 @@
 
 //----------Fonts----------------//
 
-@import url(http://fonts.googleapis.com/css?family=Cuprum:400,400italic,700,700italic);
-@import url(http://fonts.googleapis.com/css?family=Exo:400,700,800,900);
-
+@import url(http://fonts.googleapis.com/css?family=Gafata);
 
 //----------Colors---------------//
 
 @bg-color: #ffffff;
-@color1: #DC3D24; //orangish
-@color2: #232B2B; //dark grey
+@color1: #2980b9; //blue
+@color2: #27ae60; //light green
 @color3: #FFFFFF; //whiteish
-@color4: #E3AE57; //Tan
+@color4: #3498db; //blue
 @color5: rgba(255,255,255, 0.8);
-@color6: #B4E23C; //lightgreen
-
-
+@color6: #27ae60; //green
 
 // We need to use more specific tags in genereal in the css, or consider more than one
 // stylesheet, for example there was no way for me to use the background picture here not on the
 //whole background and then do it somewhere else, maybe we can have a couple style sheets, or
 //at least seperate style sheets to keep the very genereal tags in, aka Body, form, h1,h2..etc...
 
-* {
-  font-family: 'Cuprum', sans-serif !important;
+h1, h3, h4{
+  color: white !important;
+  font-family: 'Gafata', sans-serif !important;
+  border-radius: 10px;
 }
 
-h1, h4{
-  color: white !important;
+.item h3 {
+  color: #333333 !important;
 }
 
 body{
   //background-size: cover;
-  font-family: 'Cuprum', sans-serif;
+  font-family: 'Gafata', sans-serif !important;
   //background-image: url('http://upload.wikimedia.org/wikipedia/commons/0/05/Items_at_the_Junk_Yard_%287026999459%29.jpg');
-  background-color: lighten(@color2, 20%);
+  background-color: #bdc3c7;
 }
 
 fieldset{
   background-color: lightgrey;
   opacity: .95;
+  font-family: 'Gafata', sans-serif !important;
 }
 
 legend{
   border: 2px #333333 solid;
+  font-family: 'Gafata', sans-serif !important;
+}
+
+.item-list {
+  display: inline-block;
 }
 
 #navPhoto {
-  width: 60px;
+  width: 45px;
+  height: 45px;
   padding: 8px;
-  background-size: auto;
+  background-size: cover;
 }
 
 .panel {
   text-align: center;
   background-color: #333333;
+  margin-top: 10px !important;
+  font-family: 'Gafata', sans-serif !important;
+  border-radius: 15px;
 }
 
 .album{
@@ -130,33 +138,37 @@ table{
 //-------------HOMEPAGE------------------//
 //---------------------------------------//
 #tabWrap{
-  background-color: @color4;
+  background-color: #fff;
   opacity: .9;
   border-radius: 10px;
-  border: 5px solid darken(@color4, 30%);
+  border: 12px solid #2980b9;
   padding: 10px;
-  width: 75%;
-  margin: auto;
+  width: 100%;
+  margin: 0 auto;
   margin-bottom: 75px;
+  margin-top: 75px;
 }
 
 
 h2{
+  font-family: 'Gafata', sans-serif !important;
   margin-top: 20px;
-  color: @color1;
-  font-weight: bold;
+  color: #000;
   font-size: 55px;
-  text-shadow: 2px 2px black;
+  font-weight: bold;
 }
 
 #tabWrap p{
+  font-family: 'Gafata', sans-serif !important;
   color: white;
 }
 
 #tabWrapTitle{
+  font-family: 'Gafata', sans-serif !important;
   text-align: center;
-  color: @color2;
+  color: #2980b9;
   font-size: 50px;
+  font-weight: bold;
 }
 
 #spacer{
@@ -168,14 +180,15 @@ h2{
   background-color: @color5;
   text-align: center;
   padding-top: 3px;
+  border-bottom: 11px solid #2980b9;
 }
 
 #homeHead {
-  color: @color6;
+  color: #fff;
   font-family: 'Exo', sans-serif;
   font-size: 76px;
   font-weight: bold;
-  text-shadow: 4px 4px @color2;
+  text-shadow: 4px 4px #000;
 }
 
 #homeHeadWrap{
@@ -189,13 +202,14 @@ h2{
 }
 
 #restOfHomePage{
-  margin-top: 10px;
-  color: white;
+  background-color: #bdc3c7;
+  border-top: 11px solid #2980b9;
+  color: #34495e;
 }
 
 #restOfHomePage h6{
   margin-top: 10px;
-  color: white;
+  color: #34495e;
 }
 
 //---------------------------------------------//
@@ -213,6 +227,7 @@ h2{
   text-align: center;
 }
 
+/*
 #createItemButton{
   background-color: lighten(@color2, 20%);
   border-radius: 15px;
@@ -220,18 +235,19 @@ h2{
   color: @color3;
   box-shadow: 0 8px 8px -6px black;
 }
+*/
 
 #createItemButton:hover {
   box-shadow: 0 8px 8px -6px white;
 }
 
 #createItemForm{
-  background-color: @color4;
+  background-color: #ecf0f1;
   padding: 30px;
-  border: 3px solid darken(@color4, 20%);
+  border: 7px solid #3498db;
   border-radius: 20px;
   text-align: center;
-  box-shadow: inset 0 0 100px 10px lighten(@color4, 20%);
+  //box-shadow: inset 0 0 100px 10px lighten(@color4, 20%);
   //box-shadow: 0 8px 8px -6px black;
 
 }
@@ -243,9 +259,9 @@ h2{
 #createItemTextAreaWrapper textarea{
   width: 400px;
   height: 200px;
-  border: 3px solid darken(@color4, 20%);
+  border: 7px solid #3498db;
   border-radius: 20px;
-  background-color: lighten(@color2, 50%);
+  //background-color: lighten(@color2, 50%);
   color: black;
   box-shadow: inset 0 0 100px 10px lighten(@color2, 75%);
   //box-shadow: 0 8px 8px -6px black;

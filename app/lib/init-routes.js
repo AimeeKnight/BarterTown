@@ -29,9 +29,11 @@ function load(app, fn){
   app.get('/items/:id', d, items.show);
   app.post('/items', d, items.create);
   app.del('/items/:id', d, items.destroy);
+  // first id == original item second id == winning item
   app.post('/items/trade/:id/:id2', d, items.trade);
-  app.post('/items/offer/:id', d, items.offer);
-
+  // first id == item offered second id == original item
+  app.post('/items/offer/:id/:id2', d, items.offer);
+  app.post('/items/toggle/:id', d, items.toggle);
   console.log('Routes Loaded');
   fn();
 }

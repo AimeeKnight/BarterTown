@@ -6,10 +6,24 @@ var request = require('request');
 //var fs = require('fs');
 //var Mongo = require('mongodb');
 var _ = require('lodash');
+var globalPage = 1;
 
 exports.index = function(req, res){
   // for filtering to work we need to do a findAll!!!
-  Item.findByAvailable(function(items){
+  console.log('req.query>>>>>>>>', req.query);
+  if(req.query.move === 'next'){
+    globalPage ++;
+  }else if(req.query.move === 'prev'){
+    globalPage --;
+  }else{
+    globalPage = 1;
+  }
+
+  req.query.page = req.query.page || globalPage;
+
+  console.log('req.query.page in route before function call>>>>>>>>>', req.query.page);
+
+  Item.findByFilter(req.query, function(items){
     console.log(items);
     res.render('items/index', {title:'Items Available for Bid!', items:items});
   });
@@ -31,7 +45,7 @@ exports.show = function(req, res){
     });
 
     User.findById(item.userId.toString(), function(originalUser){
-      originalUser = originalUser._id.toString();
+      //originalUser = originalUser._id.toString();
       Item.findByUserId(req.session.userId, function(userItems){
         res.render('items/show', {item:item, originalUser:originalUser, bidItems:bidItems, userItems:userItems, loggedInUser:req.session.userId});
       });
@@ -89,10 +103,13 @@ exports.trade = function(req, res){
 };
 
 exports.offer = function(req, res){
-  var id = req.params.id.trim();
+  // id1 == offered item
+  var id1 = req.params.id.trim();
+  // id2 == original item
+  var id2 = req.params.id2.trim();
 
-  Item.findById(id, function(item){
-    item.toggleAvailable(function(){
+  Item.findById(id2, function(originalItem){
+    originalItem.addBid(id1, function(){
     });
   });
 
@@ -114,4 +131,21 @@ function sendTradeEmail(user, item){
   form.append('text', 'Below is a picture of your new item!');
   //form.append('attachment', fs.createReadStream(__dirname+'../' + item.photo));
 }
+
+exports.filter = function(req, res){
+  Item.findByFilter(req.query, function(records){
+    res.send(records);
+  });
+};
+
+exports.toggle = function(req, res){
+  var id = req.params.id.trim();
+
+  Item.findById(id, function(item){
+    item.toggleAvailable(function(){
+    });
+  });
+
+  res.redirect('users/' + req.session.userId);
+};
 

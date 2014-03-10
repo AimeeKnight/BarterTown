@@ -4,25 +4,60 @@ block content
 
   #homePicture
     #headerWrapper
-     h2 Welcome to Nashville Barter Association!
+     h2 The Nashville Barter Association
     .row
       .small-12.columns
         #homeHeadWrap
-          h2#homeHead Want To Trade?
+          //h2#homeHead Want To Trade?
 
     .row
       .small-8.columns#tabWrap
-        #tabWrapTitle HOW TO GET STARTED
+        #tabWrapTitle Want to trade? Get Started Now!
         dl(class="tabs vertical", data-tab)
           dd(class="active"): a(href="#panel1a") SIGNUP
           dd: a(href="#panel2a") LOGIN
-          dd: a(href="#panel3a") ADD ITEMS
+          dd: a(href="#panel3a") VIEW AUCTIONS
           dd: a(href="#panel4a") START BIDDING
         div(class="tabs-content vertical")
           div(class="content active", id="panel1a")
             p.tabP Simply register your email and password using the link in the menu bar
+            form(action='/register', method='post', enctype='multipart/form-data')
+              fieldset
+                legend Register
+                .row
+                  .small-12.columns
+                    label User Name
+                    input(name='userName', type='text', autofocus=true, required)
+                  .small-12.columns
+                    label Email
+                    input(name='email', type='email', required)
+                .row
+                  .small-12.columns
+                    label Password
+                    input(name='password', type='password', required)
+                .row
+                  .small-12.columns
+                    label Add Photo
+                    input(name='userPhoto', type='file', required)
+                .row
+                  .small-12.columns
+                    button.small.radius Register
           div(class="content", id="panel2a")
             p.tabP Login after recieving your confirmation e-mail
+            form(action='/login', method='post')
+              fieldset
+                legend Login
+                .row
+                  .small-12.columns
+                    label Email
+                    input(name='email', type='text', required)
+                .row
+                  .small-12.columns
+                    label Password
+                    input(name='password', type='password', required)
+                .row
+                  .small-12.columns
+                    button.small.radius.alert Login
           div(class="content", id="panel3a")
             p.tabP Add items that you want to use to trade for other items
           div(class="content", id="panel4a")

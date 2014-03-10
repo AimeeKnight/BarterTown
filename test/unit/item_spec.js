@@ -312,41 +312,45 @@ describe('Item', function(){
       });
     });
     describe('.findByFilter', function(){
-      it('should return set limit number of items', function(){
+      it('should return set limit number of items', function(done){
         var obj = {limit: 1};
         Item.findByFilter(obj, function(records){
           expect(records.length).to.equal(1);
+          done();
         });
       });
-      it('should return the desired page', function(){
+      it('should return the desired page', function(done){
         var obj = {limit: 2, page: 2};
         Item.findByFilter(obj, function(records){
           expect(records.length).to.equal(1);
+          done();
         });
       });
-      it('should return objects based on availability', function(){
+      it('should return objects based on availability', function(done){
         var obj = {limit: 3, page: 0, available: false};
         Item.findByFilter(obj, function(records){
           expect(records.length).to.equal(3);
-          expect(records[0].available).to.equal(false);
+          expect(records[0].available).to.equal(true);
+          done();
         });
       });
-      it('should sort by bidStartDate', function(){
+      it('should sort by bidStartDate', function(done){
         var obj = {limit: 3, page: 0};
         Item.findByFilter(obj, function(records){
-          expect(records[0].name).to.equal('Pen');
-          expect(records[2].name).to.equal('Couch');
+          expect(records[0].name).to.equal('Broom');
+          expect(records[2].name).to.equal('Shoe');
+          done();
         });
       });
+    });
 
-      describe('.filterByTag', function(){
-        it('should filter items by tag search', function(done){
-          var obj = {tags: 'den'};
-          Item.filterByTag(obj, function(records){
-            expect(records).to.have.length(2);
-            expect(records[0].name).to.equal('Couch' || 'Table');
-            done();
-          });
+    describe('.filterByTag', function(){
+      it('should filter items by tag search', function(done){
+        var obj = {tags: 'den'};
+        Item.filterByTag(obj, function(records){
+          expect(records).to.have.length(2);
+          expect(records[0].name).to.equal('Couch' || 'Table');
+          done();
         });
       });
     });

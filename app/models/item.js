@@ -112,22 +112,36 @@ Item.findByFilter = function(data, fn){
   //SET DEFAULTS FOR PAGING HERE---------
   var limit, page;
   if(!data.limit){
-    limit = 5;
+    limit = 10;
   }else{
     limit = parseInt(data.limit);
   }
 
   if(!data.page){
     page = 0;
+  }else if(data.page < 0){
+    page = 0;
   }else{
     page = parseInt((data.page)-1);
   }
 
   var options = {'limit': limit, 'skip':(limit*page), 'sort': 'bidStartDate'};
-  data.available = !!(data.available);
+  data.available = true;
 
+  //tags
+  if(data.tags){
+    var tag = data.tags;
+    data.tags = {$in: [tag]};
+  }else{
+    delete data.tags;
+  }
+
+  console.log('options being passed into find before delete>>>>>>>>>', options);
   delete data.limit;
   delete data.page;
+  delete data.move;
+  console.log('options being passed into find after delete>>>>>>>>>', options);
+  console.log('data>>>>>>>', data);
   items.find(data, options).toArray(function(err, records){
     fn(records);
   });

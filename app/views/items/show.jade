@@ -1,35 +1,47 @@
 extends ../shared/template
 
 block content
-  h1.panel= item.name
   .row
     .small-12.columns
+      h1.panel= item.name
+      label#item-id.hide= item._id
+
+  .row
+    .small-12.columns.center
       img(src= item.photo).item-img-large
       .item
         h3 Item Description:
           p.inline= item.description
         h3 Tags:
           p.inline= item.tags
+
   .row
     .small-6.columns
       h5= originalUser.email
     .small-6.columns
       each item in bidItems
-        h3= item.name
+        h1 Current Bids!
+        a(href='/items/' + item._id)= item.name
+        if loggedInUser == originalUser._id.toString()
 
-  .row
-    .small-12.columns
-      if loggedInUser == originalUser
-        form(action='/items/' + item._id, method='post')
-          input(type='hidden', name='_method', value='delete', required)
-          button.alert.small.radius Remove
   .row
     .small-4.columns
-      if loggedInUser !== originalUser
+      if loggedInUser == originalUser._id.toString()
+        select#selectWinner
+          each bid in bidItems
+            option(value= bid._id)= bid.name
+        button#winning-item.small.radius Select Winner
+        //form(action='/items/' + item._id, method='post')
+          //input(type='hidden', name='_method', value='delete', required)
+          //button.alert.small.radius Remove
+    .small-8.columns
+
+  .row#offers
+    .small-4.columns
+      if loggedInUser !== originalUser._id.toString()
         select#itemSelect
           each thing in userItems
-            option(value= thing.name)= thing.name
-        button#trade.small.radius Make Bid With This Item
+            option(value= thing._id)= thing.name
+        button#offer-item.small.radius Make Offer
     .small-8.columns
       //each item in item.bids
-

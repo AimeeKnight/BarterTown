@@ -38,7 +38,7 @@ exports.login = function(req, res){
       req.session.regenerate(function(){
         req.session.userId = user._id.toString();
         req.session.save(function(){
-          res.redirect('/');
+          res.redirect('users/' + req.session.userId);
         });
       });
     }else{

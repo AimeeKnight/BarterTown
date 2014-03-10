@@ -54,6 +54,7 @@ describe('items', function(){
   });
 
   describe('GET /items', function(){
+    //route covers paging, and filtering by tag
     it('should display available items page', function(done){
       request(app)
       .get('/items')
@@ -141,14 +142,16 @@ describe('items', function(){
     });
   });
 
-  describe('POST /offer/:id', function(){
-    it('should make items available for trade', function(done){
+  describe('POST /offer/:id/:id2', function(){
+    it('should push the offered item into the original items bid array', function(done){
       request(app)
-      .post('/items/offer/' + itemId)
+      .post('/items/offer/' + itemId2 + '/' + itemId)
       .set('cookie', cookie)
       .expect(302, done);
     });
   });
+
+
 //////////
 });
 
