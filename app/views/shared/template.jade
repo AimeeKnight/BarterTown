@@ -36,95 +36,85 @@ html(class='no-js', lang='en')
                   li.has-form
                     form(action='/logout', method='post')
                       button#logout.tiny.radius.alert Logout
-            //else
-              //li.divider
-              //li: a(href="/auth") Register/Login
+              li.divider
+              li: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     .row
       .small-12.columns
         div#myModal.createItemForm.reveal-modal.tiny(data-reveal)
           .row
             .small-12.columns
               form(action='/items', method='post', enctype='multipart/form-data')
-                label Name
-                  input(name='name', type='text', autofocus=true, required)
-                label Tags
-                select(name='tag1')
-                  option(value='General') General
-                  option(value='Business') Business
-                  option(value='Furniture') Furniture
-                  option(value='Household') Household
-                  option(value='Tools') Tools
-                  option(value='Sporting') Sporting
-                  option(value='Appliances') Appliances
-                  option(value='Clothing') Clothing
-                  option(value='Gaming') Gaming
-                  option(value='Music') Music
-                  option(value='Entertainment') Entertainment
-                  option(value='Garden') Garden
-                  option(value='Electronics') Electronics
-                  option(value='Automobile') Automobile
-                  option(value='Materials') Materials
-                select(name='tag2')
-                  option(value='General') General
-                  option(value='Business') Business
-                  option(value='Furniture') Furniture
-                  option(value='Household') Household
-                  option(value='Tools') Tools
-                  option(value='Sporting') Sporting
-                  option(value='Appliances') Appliances
-                  option(value='Clothing') Clothing
-                  option(value='Gaming') Gaming
-                  option(value='Music') Music
-                  option(value='Entertainment') Entertainment
-                  option(value='Garden') Garden
-                  option(value='Electronics') Electronics
-                  option(value='Automobile') Automobile
-                  option(value='Materials') Materials
-                select(name='tag3')
-                  option(value='General') General
-                  option(value='Business') Business
-                  option(value='Furniture') Furniture
-                  option(value='Household') Household
-                  option(value='Tools') Tools
-                  option(value='Sporting') Sporting
-                  option(value='Appliances') Appliances
-                  option(value='Clothing') Clothing
-                  option(value='Gaming') Gaming
-                  option(value='Music') Music
-                  option(value='Entertainment') Entertainment
-                  option(value='Garden') Garden
-                  option(value='Electronics') Electronics
-                  option(value='Automobile') Automobile
-                  option(value='Materials') Materials
-                label Photo
-                  input(name='photo', type='file', required)
-                label description
-                  textarea(name='description', cols='300', rows='10', placeholder='Tell us about your item!', required)
-                  button#createItemButton.close-reveal-model Create
+                label.left Name
+                input(name='name', type='text', autofocus=true, required)
+          .row
+            .small-4.columns
+              label.left Tags
+              select(name='tag1')
+                option(value='General') General
+                option(value='Business') Business
+                option(value='Furniture') Furniture
+                option(value='Household') Household
+                option(value='Tools') Tools
+                option(value='Sporting') Sporting
+                option(value='Appliances') Appliances
+                option(value='Clothing') Clothing
+                option(value='Gaming') Gaming
+                option(value='Music') Music
+                option(value='Entertainment') Entertainment
+                option(value='Garden') Garden
+                option(value='Electronics') Electronics
+                option(value='Automobile') Automobile
+                option(value='Materials') Materials
+            .small-4.columns
+              label.left &nbsp;
+              select(name='tag2')
+                option(value='General') General
+                option(value='Business') Business
+                option(value='Furniture') Furniture
+                option(value='Household') Household
+                option(value='Tools') Tools
+                option(value='Sporting') Sporting
+                option(value='Appliances') Appliances
+                option(value='Clothing') Clothing
+                option(value='Gaming') Gaming
+                option(value='Music') Music
+                option(value='Entertainment') Entertainment
+                option(value='Garden') Garden
+                option(value='Electronics') Electronics
+                option(value='Automobile') Automobile
+                option(value='Materials') Materials
+            .small-4.columns
+              label.left &nbsp;
+              select(name='tag3')
+                option(value='General') General
+                option(value='Business') Business
+                option(value='Furniture') Furniture
+                option(value='Household') Household
+                option(value='Tools') Tools
+                option(value='Sporting') Sporting
+                option(value='Appliances') Appliances
+                option(value='Clothing') Clothing
+                option(value='Gaming') Gaming
+                option(value='Music') Music
+                option(value='Entertainment') Entertainment
+                option(value='Garden') Garden
+                option(value='Electronics') Electronics
+                option(value='Automobile') Automobile
+                option(value='Materials') Materials
+          .row
+            .small-12.columns
+              label.left Photo
+              input(name='photo', type='file', required)
+          .row
+            .small-12.columns
+              label.left Description
+              textarea(name='description', cols='300', rows='5', placeholder='Tell us about your item!', required)
+              button#createItemButton.radius.close-reveal-model Create
           a.close-reveal-modal &#215;
     .row
       .small-12.columns
         #clearNav
     block content
-
-  #restOfHomePage
-    .row
-      .small-6.columns
-        #smallSpacer
-        h6 copyright stuff
-        h6 contact info
-        h6 whatever else we want to put down here
-        a(href='http://www.google.com') Find a Solution to your problem here
-        #footerSpacer
-      .small-6.columns
-        #smallSpacer
-        h6 other footer things
-        h6 stuff
-        h6 too early
-        a(href='http://www.stackoverflow.com') We find Our solutions here
-        #footerSpacer
-    
-
 
 
     script(src='/js/vendor/jquery.js')

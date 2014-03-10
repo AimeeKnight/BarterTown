@@ -10,9 +10,6 @@ block content
           img(src= user.userPhoto).user-img
         else if gravatar
           img(src= gravatar).user-img
-      .row
-        .small-12.columns
-           a.radius.button(href="#" data-reveal-id="myModal") Add Item
 
   .row
     .small-6.columns
@@ -55,6 +52,8 @@ block content
                     form(action='/items/toggle/' + item._id, method='post')
                       input(type='hidden', name='_method', value='post')
                       button.small.radius Remove From Auction
+                  else
+                    h3.num-bids Current bids: #{item.bids.length}
   //form(action='/items/' + item._id, method='post')
     //input(type='hidden', name='_method', value='delete')
     //button.alert.small.radius Delete

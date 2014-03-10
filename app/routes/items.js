@@ -14,7 +14,6 @@ var defaultLimit = 5;
 
 exports.index = function(req, res){
   // for filtering to work we need to do a findAll!!!
-  console.log('req.query>>>>>>>>', req.query);
   if(req.query.move === 'next'){
     globalPage ++;
   }else if(req.query.move === 'prev'){
@@ -140,14 +139,13 @@ function sendOriginalEmail(originalUser, item){
   form.append('to', originalUser.email);
   form.append('subject', 'Your recent trade');
   form.append('text', 'Congrats! You are the proud owner of a ' + item.name);
-  //form.append('attachment', fs.createReadStream(__dirname+'../' + item.photo));
+  //form.append('attachment', fs.createReadStream(__dirname + '/../static' + item.photo));
 }
 
 function sendTradeEmail(winningUser, item){
   var key = process.env.MAILGUN;
   var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
   var post = request.post(url, function(err, response, body){
-    //res.redirect('users/' + winningUser._id.toString());
     //res.redirect('/');
   });
   var form = post.form();
@@ -155,7 +153,7 @@ function sendTradeEmail(winningUser, item){
   form.append('to', winningUser.email);
   form.append('subject', 'Your recent trade');
   form.append('text', 'Congrats, your item won! You are now the proud owner of a ' + item.name);
-  //form.append('attachment', fs.createReadStream(__dirname+'../' + item.photo));
+  //form.append('attachment', fs.createReadStream(__dirname + '/../static' + item.photo));
 }
 
 exports.filter = function(req, res){

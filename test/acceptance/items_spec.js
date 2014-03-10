@@ -38,11 +38,13 @@ describe('items', function(){
                              description:'Description',
                              tags:'some, random, tags',
                              available: true,
+                             //photo: '/img/items/test111111111111111111111111/TestShakeWeight.jpg',
                              userId:userId});
               i2 = new Item({name:'Sock',
                              description:'Description',
                              tags:'some, random, tags',
                              available: true,
+                             //photo: '/img/items/test111111111111111111111111/TestShakeWeight.jpg',
                              userId:userId2});
 
               i1.insert(function(){

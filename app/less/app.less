@@ -10,8 +10,9 @@
 @color2: #27ae60; //light green
 @color3: #FFFFFF; //whiteish
 @color4: #3498db; //blue
-@color5: rgba(255,255,255, 0.8);
+@color5: rgba(255,255,255,0.9);
 @color6: #27ae60; //green
+@box-shadow: 0px 8px 6px -6px #444444;;
 
 // We need to use more specific tags in genereal in the css, or consider more than one
 // stylesheet, for example there was no way for me to use the background picture here not on the
@@ -40,7 +41,6 @@ body{
 }
 fieldset{
   background-color: lightgrey;
-  opacity: .95;
   font-family: 'Gafata', sans-serif !important;
 }
 
@@ -106,6 +106,7 @@ legend{
   width: 150px;
   border-radius: 10px;
   //height: 100px;
+  box-shadow: @box-shadow;
 }
 
 .user-img {
@@ -119,13 +120,25 @@ legend{
   width: 300px;
   //height: 300px;
   border-radius: 15px;
+  box-shadow: @box-shadow;
 }
 
 .item-img-small {
-  width: 100px;
-  //height: 300px;
+  width: 150px;
+  height: 150px;
+  background-size: cover;
   border-radius: 15px;
-  margin: 5px;
+  margin: 15px;
+  box-shadow: @box-shadow;
+}
+
+.itemIndexWrap {
+  text-align: center;
+}
+
+// num bids on item in user show page
+.num-bids{
+  color: maroon !important;
 }
 
 table{
@@ -204,16 +217,10 @@ h2{
 }
 
 #restOfHomePage{
-  //position: absolute;
   height:  200px;
   background-color: #bdc3c7;
   border-top: 11px solid #2980b9;
   color: #34495e;
-  bottom: 0px;
-  width: 100%;
-  //left: 0px;
-  //right: 0px;
-  //margin-bottom: 0px;
 
 }
 
@@ -223,7 +230,7 @@ h2{
 }
 
 #smallSpacer{
-  height: 25px;
+  height: 10px;
 }
 
 #footerSpacer{
@@ -313,9 +320,20 @@ h1#bid-listing{
   //border-bottom: 7px solid #3498db;
 }
 
+#myModal {
+  width: 800px;
+  height: 500px;
+  top: 90px;
+  margin-left: -397px;
+}
+
 //---- Items Index ---
 
 #itemTitle {
   margin-bottom: 20px;
   margin-left: 20px;
+}
+
+#tagTitle{
+  margin-left: 15px;
 }

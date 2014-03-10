@@ -11,16 +11,14 @@ block content
           //h2#homeHead Want To Trade?
 
     .row
-      .small-8.columns#tabWrap
-        #tabWrapTitle Want to trade? Get Started Now!
+      .small-6.small-centerd.columns#tabWrap
+        #tabWrapTitle Want to Trade? Get Started Now!
         dl(class="tabs vertical", data-tab)
           dd(class="active"): a(href="#panel1a") SIGNUP
           dd: a(href="#panel2a") LOGIN
-          dd: a(href="#panel3a") VIEW AUCTIONS
           dd: a(href="#panel4a") START BIDDING
         div(class="tabs-content vertical")
           div(class="content active", id="panel1a")
-            p.tabP Simply register your email and password using the link in the menu bar
             form(action='/register', method='post', enctype='multipart/form-data')
               fieldset
                 legend Register
@@ -43,8 +41,7 @@ block content
                   .small-12.columns
                     button.small.radius Register
           div(class="content", id="panel2a")
-            p.tabP Login after recieving your confirmation e-mail
-            form(action='/login', method='post')
+            form#loginTabForm(action='/login', method='post')
               fieldset
                 legend Login
                 .row
@@ -58,8 +55,26 @@ block content
                 .row
                   .small-12.columns
                     button.small.radius.alert Login
-          div(class="content", id="panel3a")
-            p.tabP Add items that you want to use to trade for other items
           div(class="content", id="panel4a")
-            p.tabP See what items are available and start your bidding!!
+            #paddleDiv
+              img(src='/img/BG/paddles.jpg')
 
+  #restOfHomePage
+    .row
+      .small-6.columns
+        #smallSpacer
+        h6 © 2014 Jay Knight Industries
+        h6 340 Plus Park Blvd, Nashville, TN
+        a(href='https://www.google.com/maps/place/@36.1321349,-86.7231738,17z/data=!4m2!3m1!1s0x0:0x5354c5cee33b3bbe') Visit Us
+        div &nbsp;
+        a(href='http://www.google.com') Find a Solution to your problem here
+        #smallSpacer
+      .small-6.columns
+        #smallSpacer
+        h6 Email Us <a href="mailto:jKnightInd.com">jKnightInd@gmail.com</a>
+        a(href='/items') Items for Bid
+        div &nbsp;
+        a(href='/logout') Logout
+        div &nbsp;
+        a(href='http://www.stackoverflow.com') We find Our solutions here
+        #smallSpacer

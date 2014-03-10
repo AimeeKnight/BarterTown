@@ -28,7 +28,8 @@ block content
           button#tagButton.tiny.radius Filter
         .small-4.columns
           if buttons == false
-            a.button.tiny.radius(href='/items') Back To Items
+            label &nbsp;
+            a.button.tiny.radius.left(href='/items') Back To Items
         .small-2.columns
           if buttons == true
             .row.collapse
@@ -51,15 +52,9 @@ block content
         h3 Item Category: #{tagTitle}
   .row
     .small-12.columns
-      ul#items-display.small-block-grid-3
-        //a(href='/items?move=prev') Test Prev
-        //a(href='/items?move=next') Test Next
+      ul#items-display.small-block-grid-5
         each item in items
-          .item-list
-            li 
-              .row
-                .small-12.columns
-                  div
-                    img(src= item.photo).item-img-small
-                    a(href='/items/' + item._id)= item.name
+          li.itemIndexWrap
+            .item-img-small(style='background-image:url("' + item.photo + '")')
+            a(href='/items/' + item._id)= item.name
 
