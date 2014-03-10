@@ -16,22 +16,25 @@ block content
           p.inline= item.tags
 
   .row
-    .small-6.columns
+    .small-5.columns
       h5= originalUser.email
-    .small-6.columns
-      each item in bidItems
-        h1 Current Bids!
-        a(href='/items/' + item._id)= item.name
-        if loggedInUser == originalUser._id.toString()
-
-  .row
-    .small-4.columns
       if loggedInUser == originalUser._id.toString()
         if bidItems.length != 0
           select#selectWinner
             each bid in bidItems
               option(value= bid._id)= bid.name
           button#winning-item.small.radius.alert Select Winner
+    .small-1.columns
+    .small-6.columns
+      h1 Current Bids!
+      ul
+        each item in bidItems
+          li
+            a(href='/items/' + item._id)= item.name
+            img(src= item.photo).item-img-small
+
+  .row
+    .small-4.columns
         //form(action='/items/' + item._id, method='post')
           //input(type='hidden', name='_method', value='delete', required)
           //button.alert.small.radius Remove
