@@ -6,7 +6,11 @@ var request = require('request');
 //var fs = require('fs');
 //var Mongo = require('mongodb');
 var _ = require('lodash');
+
+//DEFAULTS FOR PAGE AND LIMIT
 var globalPage = 1;
+var globalLimit = 5;
+var defaultLimit = 5;
 
 exports.index = function(req, res){
   // for filtering to work we need to do a findAll!!!
@@ -18,14 +22,14 @@ exports.index = function(req, res){
   }else{
     globalPage = 1;
   }
+  globalLimit = req.query.limit || defaultLimit;
 
   req.query.page = req.query.page || globalPage;
-
-  console.log('req.query.page in route before function call>>>>>>>>>', req.query.page);
+  //req.query.limit = req.query.limit || globalLimit;
 
   Item.findByFilter(req.query, function(items){
     console.log(items);
-    res.render('items/index', {title:'Items Available for Bid!', items:items});
+    res.render('items/index', {title:'Items Available for Bid!', items:items, globalLimit:globalLimit, buttons:true});
   });
 };
 
@@ -55,6 +59,12 @@ exports.show = function(req, res){
 
 exports.create = function(req, res){
   req.body.userId = req.session.userId;
+  var tags = [];
+  tags.push(req.body.tag1);
+  tags.push(req.body.tag2);
+  tags.push(req.body.tag3);
+  console.log(tags);
+  req.body.tags = tags;
   var item = new Item(req.body);
   item.addPhoto(req.files.photo.path);
   item.insert(function(record){
@@ -76,21 +86,24 @@ exports.trade = function(req, res){
   var temp;
 
   Item.findById(itemId1, function(item1){
+    item1.bids = [];
     Item.findById(itemId2, function(item2){
 
       User.findById(item1.userId.toString(), function(originalItemUser){
-        User.findById(item1.userId.toString(), function(winningItemUser){
+        sendOriginalEmail(originalItemUser, item2);
+
+        User.findById(item2.userId.toString(), function(winningItemUser){
+          sendTradeEmail(winningItemUser, item1);
 
           // flip flop owners
           temp = item1.userId;
           item1.userId = item2.userId;
           item2.userId = temp;
-          sendTradeEmail(originalItemUser, item2);
-          sendTradeEmail(winningItemUser, item1);
 
           // set items to unavailable (does an update)
           item1.toggleAvailable(function(){
             item2.toggleAvailable(function(){
+              //res.redirect('/');
               res.redirect('users/' + req.session.userId);
             });
           });
@@ -116,8 +129,7 @@ exports.offer = function(req, res){
 };
 
 
-function sendTradeEmail(user, item){
-
+function sendOriginalEmail(originalUser, item){
   var key = process.env.MAILGUN;
   var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
   var post = request.post(url, function(err, response, body){
@@ -125,15 +137,31 @@ function sendTradeEmail(user, item){
   });
   var form = post.form();
   form.append('from', 'aimeemarieknight@gmail.com');
-  form.append('to', user.email);
+  form.append('to', originalUser.email);
   form.append('subject', 'Your recent trade');
-  form.append('text', 'Below is a picture of your new item!');
+  form.append('text', 'Congrats! You are the proud owner of a ' + item.name);
+  //form.append('attachment', fs.createReadStream(__dirname+'../' + item.photo));
+}
+
+function sendTradeEmail(winningUser, item){
+  var key = process.env.MAILGUN;
+  var url = 'https://api:'+key+'@api.mailgun.net/v2/sandbox36742.mailgun.org/messages';
+  var post = request.post(url, function(err, response, body){
+    //res.redirect('users/' + winningUser._id.toString());
+    //res.redirect('/');
+  });
+  var form = post.form();
+  form.append('from', 'aimeemarieknight@gmail.com');
+  form.append('to', winningUser.email);
+  form.append('subject', 'Your recent trade');
+  form.append('text', 'Congrats, your item won! You are now the proud owner of a ' + item.name);
   //form.append('attachment', fs.createReadStream(__dirname+'../' + item.photo));
 }
 
 exports.filter = function(req, res){
-  Item.findByFilter(req.query, function(records){
-    res.send(records);
+  Item.filterByTag(req.query, function(items){
+    var tag = req.query.tags;
+    res.render('items/index', {tagTitle: tag, items:items, globalLimit:globalLimit, buttons:false});
   });
 };
 

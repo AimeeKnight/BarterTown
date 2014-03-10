@@ -6,13 +6,13 @@ block content
       div.panel
         h1= user.userName
         h4= user.email
-        if gravatar
-          img(src= gravatar).user-img
         if !gravatar
           img(src= user.userPhoto).user-img
+        else if gravatar
+          img(src= gravatar).user-img
       .row
         .small-12.columns
-            a.radius.button(href="#" data-reveal-id="myModal") Add Item
+           a.radius.button(href="#" data-reveal-id="myModal") Add Item
 
   .row
     .small-6.columns
@@ -67,7 +67,55 @@ block content
               label Name
                 input(name='name', type='text', autofocus=true, required)
               label Tags
-                input(name='tags', type='text', placeholder='sword, katana, awesome, metal', required)
+              select(name='tag1')
+                option(value='General') General
+                option(value='Business') Business
+                option(value='Furniture') Furniture
+                option(value='Household') Household
+                option(value='Tools') Tools
+                option(value='Sporting') Sporting
+                option(value='Appliances') Appliances
+                option(value='Clothing') Clothing
+                option(value='Gaming') Gaming
+                option(value='Music') Music
+                option(value='Entertainment') Entertainment
+                option(value='Garden') Garden
+                option(value='Electronics') Electronics
+                option(value='Automobile') Automobile
+                option(value='Materials') Materials
+              select(name='tag2')
+                option(value='General') General
+                option(value='Business') Business
+                option(value='Furniture') Furniture
+                option(value='Household') Household
+                option(value='Tools') Tools
+                option(value='Sporting') Sporting
+                option(value='Appliances') Appliances
+                option(value='Clothing') Clothing
+                option(value='Gaming') Gaming
+                option(value='Music') Music
+                option(value='Entertainment') Entertainment
+                option(value='Garden') Garden
+                option(value='Electronics') Electronics
+                option(value='Automobile') Automobile
+                option(value='Materials') Materials
+              select(name='tag3')
+                option(value='General') General
+                option(value='Business') Business
+                option(value='Furniture') Furniture
+                option(value='Household') Household
+                option(value='Tools') Tools
+                option(value='Sporting') Sporting
+                option(value='Appliances') Appliances
+                option(value='Clothing') Clothing
+                option(value='Gaming') Gaming
+                option(value='Music') Music
+                option(value='Entertainment') Entertainment
+                option(value='Garden') Garden
+                option(value='Electronics') Electronics
+                option(value='Automobile') Automobile
+                option(value='Materials') Materials
+
               label Photo
                 input(name='photo', type='file', required)
               label description

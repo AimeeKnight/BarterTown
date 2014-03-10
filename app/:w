@@ -12,7 +12,8 @@ function Item(item){
   this.name = item.name;
   this.description = item.description;
   this.bids = [];
-  this.tags = item.tags;
+  this.tags = item.tags.split(',').map(function(n){return n.trim();});
+  this.tags = _.compact(this.tags);
   this.userId = Mongo.ObjectID(item.userId);
   this.available = item.available || false;
 }

@@ -57,7 +57,8 @@ exports.logout = function(req, res){
 
 exports.show = function(req, res){
   User.findById(req.session.userId, function(user){
-    var url = gravatar.url(user.email, {s: '200', r: 'pg', d: '404'});
+    var url = gravatar.url(user.email, {s: '200', r: 'pg'});
+
     Item.findByUserId(req.session.userId, function(items){
       res.render('users/show', {user:user, items:items, gravatar: url});
     });

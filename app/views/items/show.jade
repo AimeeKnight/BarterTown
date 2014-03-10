@@ -7,31 +7,37 @@ block content
       label#item-id.hide= item._id
 
   .row
-    .small-12.columns.center
-      img(src= item.photo).item-img-large
-      .item
-        h3 Item Description:
-          p.inline= item.description
-        h3 Tags:
-          p.inline= item.tags
+    .small-12.columns
+      .small-4.columns
+        img(src= item.photo).item-img-large
+      .small-8.columns
+        .item
+          h3 Item Description:
+            p.inline= item.description
+          h3 Tags:
+            each tag in item.tags
+              .tags.button.tiny.radius #{tag}
+          h3 Owner Contact Info:
+          p= originalUser.email
 
   .row
-    .small-5.columns
-      h5= originalUser.email
-      if loggedInUser == originalUser._id.toString()
-        if bidItems.length != 0
-          select#selectWinner
-            each bid in bidItems
-              option(value= bid._id)= bid.name
-          button#winning-item.small.radius.alert Select Winner
-    .small-1.columns
-    .small-6.columns
+    .small-12.columns#current-bids
       h1 Current Bids!
       ul
         each item in bidItems
           li
             a(href='/items/' + item._id)= item.name
             img(src= item.photo).item-img-small
+
+  .row
+    .small-12.columns
+      .small-5.columns
+        if loggedInUser == originalUser._id.toString()
+          if bidItems.length != 0
+            select#selectWinner
+              each bid in bidItems
+                option(value= bid._id)= bid.name
+            button#winning-item.small.radius.alert Select Winner
 
   .row
     .small-4.columns

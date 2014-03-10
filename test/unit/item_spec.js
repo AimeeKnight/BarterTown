@@ -41,7 +41,7 @@ describe('Item', function(){
     it('should create a new Item', function(){
       var i1 = new Item({name:'Broom',
                          description:'Description',
-                         tags:'some, random, tags',
+                         tags:['some', 'random', 'tags'],
                          userId:'222222222222222222222222'});
       expect(i1).to.be.instanceof(Item);
       expect(i1.name).to.equal('Broom');
@@ -266,32 +266,32 @@ describe('Item', function(){
     beforeEach(function(done){
       var i1 = new Item({name:'Broom',
                          description:'Description',
-                         tags:'clean, random, tags',
+                         tags:['clean', 'random', 'tags'],
                          available: true,
                          userId:'222222222222222222222222'});
       var i2 = new Item({name:'Purse',
                          description:'Description',
-                         tags:'item, random, tags',
+                         tags:['clean', 'random', 'tags'],
                          available: true,
                          userId:'333333333333333333333333'});
       var i3 = new Item({name:'Shoe',
                          description:'Description',
-                         tags:'clothing, random, tags',
+                         tags:['clean', 'random', 'tags'],
                          available: true,
                          userId:'444444444444444444444444'});
       i4 = new Item({name:'Couch',
                          description:'Description',
-                         tags:'clothing, random, den',
+                         tags:['den', 'random', 'tags'],
                          available: false,
                          userId:'222222222222222222222222'});
       i5 = new Item({name:'Table',
                          description:'Description',
-                         tags:'clean, random, den',
+                         tags:['den', 'random', 'tags'],
                          available: false,
                          userId:'333333333333333333333333'});
       i6 = new Item({name:'Pen',
                          description:'Description',
-                         tags:'unique, random, tags',
+                         tags:['things', 'random', 'tags'],
                          available: false,
                          userId:'333333333333333333333333'});
       i1.insert(function(){

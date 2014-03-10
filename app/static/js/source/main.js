@@ -11,6 +11,7 @@
     $('#next').click(nextPage);
     $('#prev').click(prevPage);
     $('#limitButton').click(limitItems);
+    $('#tagButton').click(searchByTag);
   }
 
   function offer(){
@@ -27,29 +28,34 @@
     var url = window.location.origin + '/items/trade/' + originalId + '/' + winnerId;
     console.log(url);
     var type = 'POST';
-    var success = console.log('trade made');
+    var success = function(){window.location.href='/users/' + originalId;};
     $.ajax({url:url, type:type, success:success});
   }
 
+  //----------PAGING----------//
+
+
   function nextPage(){
-    var url = window.location.origin;
-    var obj = {move: 'next'};
-    var type = 'GET';
-    $.ajax({url: url, data: obj, type: type});
+    var limitVal = $('#limit').val();
+    window.location.href = ('/items?limit='+limitVal+'&move=next');
   }
 
   function prevPage(){
-    var url = window.location.origin;
-    var obj = {move: 'prev'};
-    var type = 'GET';
-    $.ajax({url: url, data: obj, type: type});
+    var limitVal = $('#limit').val();
+    window.location.href = ('/items?move='+limitVal+'prev');
   }
 
   function limitItems(){
-    var limit = $('#limit').val();
-    var url = window.location.origin + '?limit='+limit;
-    var type = 'GET';
-    $.ajax({url: url, type: type});
+    var limitVal = $('#limit').val();
+    window.location.href = ('/items?limit='+limitVal);
   }
+
+  //----------FILTER BY TAG--------//
+
+  function searchByTag(){
+    var tag = $('#selectTag').val();
+    window.location.href = ('/items/filter?tags='+ tag);
+  }
+
 })();
 

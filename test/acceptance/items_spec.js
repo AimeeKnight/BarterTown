@@ -7,9 +7,9 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 //var expect = require('chai').expect;
 var User, Item;
-var sue, i1, i2;
+var sue, bob, i1, i2;
 var cookie;
-var userId, itemId, itemId2;
+var userId, userId2, itemId, itemId2;
 
 describe('items', function(){
 
@@ -26,25 +26,33 @@ describe('items', function(){
   beforeEach(function(done){
     global.nss.db.dropDatabase(function(err, result){
       sue = new User({email:'sue@aol.com', password:'abcd'});
+      bob = new User({email:'bob@aol.com', password:'efgh'});
       sue.hashPassword(function(){
-        sue.insert(function(){
-          userId = sue._id.toString();
-          i1 = new Item({name:'Broom',
-                         description:'Description',
-                         tags:'some, random, tags',
-                         available: true,
-                         userId:userId});
-          i2 = new Item({name:'Sock',
-                         description:'Description',
-                         tags:'some, random, tags',
-                         available: true,
-                         userId:'666666666666666666666666'});
-          i1.insert(function(){
-            itemId = i1._id.toString();
-            i2.insert(function(){
-              itemId2 = i2._id.toString();
-              i1.addBid(itemId2, function(){
-                done();
+        bob.hashPassword(function(){
+          sue.insert(function(){
+            bob.insert(function(){
+              userId = sue._id.toString();
+              userId2 = bob._id.toString();
+
+              i1 = new Item({name:'Broom',
+                             description:'Description',
+                             tags:'some, random, tags',
+                             available: true,
+                             userId:userId});
+              i2 = new Item({name:'Sock',
+                             description:'Description',
+                             tags:'some, random, tags',
+                             available: true,
+                             userId:userId2});
+
+              i1.insert(function(){
+                itemId = i1._id.toString();
+                i2.insert(function(){
+                  itemId2 = i2._id.toString();
+                  i1.addBid(itemId2, function(){
+                    done();
+                  });
+                });
               });
             });
           });

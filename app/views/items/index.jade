@@ -1,29 +1,65 @@
 extends ../shared/template
 
 block content
+  #clearFilter
   .row
     .small-12.columns
-      .row#clearFilter
-        .small-6.columns
-          .row
-            .small-3.columns
-              button#prev.tiny.radius.right Previous
-            .small-3.columns
-              button#next.tiny.radius.left Next
-            .small-3.columns
-              input#page.right(type='text')
-            .small-3.columns
-              button#goToPage.tiny.radius.left Go
-        .small-6.columns
-          .row
-            .small-6.columns
-              input#limit(type='text')
-            .small-6.columns
-              button#limitButton.tiny.radius # Shown
-      ul.small-block-grid-3
-      each item in items
-        .item-list
-          li 
-            img(src= item.photo).item-img-small
-            a(href='/items/' + item._id)= item.name
+      .row
+        .small-3.columns
+          label Filter By Category
+          select#selectTag(value= 'tags')
+            option General
+            option Business
+            option Household
+            option Tools
+            option Sporting
+            option Furniture
+            option Appliances
+            option Clothing
+            option Gaming
+            option Music
+            option Entertainment
+            option Garden
+            option Electronics
+            option Automobile
+            option Materials
+        .small-3.columns
+          label &nbsp;
+          button#tagButton.tiny.radius Filter
+        .small-4.columns
+          if buttons == false
+            a.button.tiny.radius(href='/items') Back To Items
+        .small-2.columns
+          if buttons == true
+            .row.collapse
+              .small-6.columns
+                label Per Page
+                input#limit(type='text' value= globalLimit)
+              .small-6.columns
+                label &nbsp;
+                a#limitButton.button.postfix.tiny.radius Show
+  if buttons == true
+    .row
+      .small-3.columns
+        ul.button-group.round
+          li: button#prev.tiny.radius Previous
+          li: button#next.tiny.radius &nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;&nbsp;
+      .small-9.columns
+  if buttons == false
+    .row
+      #tagTitle
+        h3 Item Category: #{tagTitle}
+  .row
+    .small-12.columns
+      ul#items-display.small-block-grid-3
+        //a(href='/items?move=prev') Test Prev
+        //a(href='/items?move=next') Test Next
+        each item in items
+          .item-list
+            li 
+              .row
+                .small-12.columns
+                  div
+                    img(src= item.photo).item-img-small
+                    a(href='/items/' + item._id)= item.name
 
