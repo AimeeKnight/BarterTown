@@ -9,8 +9,8 @@ var _ = require('lodash');
 
 //DEFAULTS FOR PAGE AND LIMIT
 var globalPage = 1;
-var globalLimit = 5;
-var defaultLimit = 5;
+var globalLimit = 10;
+var defaultLimit = 10;
 
 exports.index = function(req, res){
   // for filtering to work we need to do a findAll!!!

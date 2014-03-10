@@ -111,7 +111,7 @@ Item.findByFilter = function(data, fn){
   //SET DEFAULTS FOR PAGING HERE---------
   var limit, page;
   if(!data.limit){
-    limit = 15;
+    limit = 10;
   }else{
     limit = parseInt(data.limit);
   }
