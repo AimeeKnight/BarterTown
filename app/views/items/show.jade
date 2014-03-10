@@ -27,10 +27,11 @@ block content
   .row
     .small-4.columns
       if loggedInUser == originalUser._id.toString()
-        select#selectWinner
-          each bid in bidItems
-            option(value= bid._id)= bid.name
-        button#winning-item.small.radius Select Winner
+        if bidItems.length != 0
+          select#selectWinner
+            each bid in bidItems
+              option(value= bid._id)= bid.name
+          button#winning-item.small.radius.alert Select Winner
         //form(action='/items/' + item._id, method='post')
           //input(type='hidden', name='_method', value='delete', required)
           //button.alert.small.radius Remove

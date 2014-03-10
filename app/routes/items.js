@@ -91,7 +91,7 @@ exports.trade = function(req, res){
           // set items to unavailable (does an update)
           item1.toggleAvailable(function(){
             item2.toggleAvailable(function(){
-
+              res.redirect('users/' + req.session.userId);
             });
           });
         });
@@ -99,7 +99,6 @@ exports.trade = function(req, res){
     });
   });
 
-  res.redirect('users/' + req.session.userId);
 };
 
 exports.offer = function(req, res){
